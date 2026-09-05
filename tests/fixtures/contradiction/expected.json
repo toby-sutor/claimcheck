@@ -1,0 +1,240 @@
+{
+  "schema_version": 4,
+  "fixture": "contradiction",
+  "held_out": false,
+  "kind": "defect",
+  "description": "The sources give incompatible connect timeouts and the merge silently adopts source_b's value without recording the disagreement.",
+  "plants": [
+    "source_a.md line 8 states a 30 second connect timeout; source_b.md line 8 states 60 seconds; merged.md line 8 states 60 seconds and says nothing about the disagreement"
+  ],
+  "merged": "merged.md",
+  "prompts": {
+    "source_to_merged": "prompts/verify.md",
+    "merged_to_sources": "prompts/verify_reverse.md"
+  },
+  "claim_count_band": {
+    "source_a.md": [
+      5,
+      10
+    ],
+    "source_b.md": [
+      5,
+      10
+    ],
+    "merged.md": [
+      8,
+      14
+    ]
+  },
+  "probes": [
+    {
+      "probe_id": "a-connect-timeout",
+      "direction": "source_to_merged",
+      "document": "source_a.md",
+      "line": 8,
+      "text": "The default connect timeout is 30 seconds.",
+      "must_extract": true,
+      "anchor": {
+        "all_of": [
+          "connect timeout",
+          "30 seconds"
+        ]
+      },
+      "match": {
+        "all_of": [
+          "connect timeout",
+          "30 seconds"
+        ]
+      },
+      "expected_verdict": "CONTRADICTED",
+      "also_acceptable": [],
+      "expected_finding": "contradicted",
+      "expected_evidence_contains": [
+        "60"
+      ],
+      "note": "merged.md states 60 seconds for the same attribute. A different value for the same attribute is CONTRADICTED, not MISSING — the fact was not dropped, it was overwritten."
+    },
+    {
+      "probe_id": "b-connect-timeout",
+      "direction": "source_to_merged",
+      "document": "source_b.md",
+      "line": 8,
+      "text": "The default connect timeout is 60 seconds.",
+      "must_extract": true,
+      "anchor": {
+        "all_of": [
+          "connect timeout",
+          "60 seconds"
+        ]
+      },
+      "match": {
+        "all_of": [
+          "connect timeout",
+          "60 seconds"
+        ]
+      },
+      "expected_verdict": "SUPPORTED",
+      "also_acceptable": [],
+      "expected_finding": "none",
+      "expected_evidence_contains": [
+        "60 seconds"
+      ],
+      "note": "The winning side of the disagreement. Supported on its own terms — which is exactly why a per-claim verdict cannot be the whole story and the conflict below has to be reported separately."
+    },
+    {
+      "probe_id": "a-listen-port",
+      "direction": "source_to_merged",
+      "document": "source_a.md",
+      "line": 7,
+      "text": "The relay listens on port 8443 by default.",
+      "must_extract": true,
+      "anchor": {
+        "all_of": [
+          "listens on port",
+          "8443"
+        ]
+      },
+      "match": {
+        "all_of": [
+          "listens on port",
+          "8443"
+        ]
+      },
+      "expected_verdict": "SUPPORTED",
+      "also_acceptable": [],
+      "expected_finding": "none"
+    },
+    {
+      "probe_id": "a-read-timeout",
+      "direction": "source_to_merged",
+      "document": "source_a.md",
+      "line": 9,
+      "text": "The default read timeout is 120 seconds.",
+      "must_extract": true,
+      "anchor": {
+        "all_of": [
+          "read timeout",
+          "120 seconds"
+        ]
+      },
+      "match": {
+        "all_of": [
+          "read timeout",
+          "120 seconds"
+        ]
+      },
+      "expected_verdict": "SUPPORTED",
+      "also_acceptable": [],
+      "expected_finding": "none",
+      "note": "Adjacent to the contradicted claim and identical in both sources. Guards against a tool that flags a whole neighbourhood once one value in it conflicts."
+    },
+    {
+      "probe_id": "a-max-connections",
+      "direction": "source_to_merged",
+      "document": "source_a.md",
+      "line": 13,
+      "text": "The relay accepts at most 512 concurrent connections.",
+      "must_extract": true,
+      "anchor": {
+        "all_of": [
+          "512 concurrent connections"
+        ]
+      },
+      "match": {
+        "all_of": [
+          "512 concurrent connections"
+        ]
+      },
+      "expected_verdict": "SUPPORTED",
+      "also_acceptable": [],
+      "expected_finding": "none"
+    },
+    {
+      "probe_id": "a-tls-version",
+      "direction": "source_to_merged",
+      "document": "source_a.md",
+      "line": 18,
+      "text": "The minimum accepted TLS version is TLS 1.2.",
+      "must_extract": true,
+      "anchor": {
+        "all_of": [
+          "minimum accepted TLS version",
+          "TLS 1.2"
+        ]
+      },
+      "match": {
+        "all_of": [
+          "minimum accepted TLS version",
+          "TLS 1.2"
+        ]
+      },
+      "expected_verdict": "SUPPORTED",
+      "also_acceptable": [],
+      "expected_finding": "none"
+    },
+    {
+      "probe_id": "b-log-format",
+      "direction": "source_to_merged",
+      "document": "source_b.md",
+      "line": 13,
+      "text": "Access logs are written in JSON Lines format.",
+      "must_extract": true,
+      "anchor": {
+        "all_of": [
+          "access logs",
+          "JSON Lines"
+        ]
+      },
+      "match": {
+        "all_of": [
+          "access logs",
+          "JSON Lines"
+        ]
+      },
+      "expected_verdict": "SUPPORTED",
+      "also_acceptable": [],
+      "expected_finding": "none"
+    },
+    {
+      "probe_id": "b-health-path",
+      "direction": "source_to_merged",
+      "document": "source_b.md",
+      "line": 14,
+      "text": "The health check endpoint is /-/healthy.",
+      "must_extract": true,
+      "anchor": {
+        "all_of": [
+          "health check endpoint",
+          "/-/healthy"
+        ]
+      },
+      "match": {
+        "all_of": [
+          "health check endpoint",
+          "/-/healthy"
+        ]
+      },
+      "expected_verdict": "SUPPORTED",
+      "also_acceptable": [],
+      "expected_finding": "none",
+      "note": "Final line of source_b.md, so this probe also exercises the upper bound of the anchoring window."
+    }
+  ],
+  "must_not_extract": [],
+  "expected_conflicts": [
+    {
+      "conflict_id": "connect-timeout",
+      "attribute": "default_connect_timeout",
+      "probes": [
+        "a-connect-timeout",
+        "b-connect-timeout"
+      ],
+      "reason": "The sources assign incompatible values to the same attribute: 30 seconds against 60 seconds.",
+      "human_decision_required": true
+    }
+  ],
+  "expected_exit_code": {
+    "strict": 1,
+    "lenient": 1
+  }
+}

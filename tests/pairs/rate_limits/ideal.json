@@ -1,0 +1,316 @@
+{
+  "dispositions": [
+    {
+      "segment": "b1",
+      "disposition": "superseded",
+      "replacement": "Rate limiting and the 429 contract for gateway clients",
+      "reason": "Both title the same guidance; A's names the contract as well as the code."
+    },
+    {
+      "segment": "b2",
+      "disposition": "superseded",
+      "replacement": "Every credential has a cap.",
+      "reason": "Same opening fact; A states it in fewer words."
+    },
+    {
+      "segment": "b3",
+      "disposition": "superseded",
+      "replacement": "When that cap is spent the gateway answers 429 at the edge — without waking the service behind it — so the refusal costs the platform almost nothing and costs a caller that files it under transport error a great deal.",
+      "reason": "A says where the refusal is issued and what it costs, which B leaves out."
+    },
+    {
+      "segment": "b4",
+      "disposition": "dropped",
+      "replacement": "",
+      "reason": "An aside about a rejected client-side design; A never makes the claim."
+    },
+    {
+      "segment": "b5",
+      "disposition": "superseded",
+      "replacement": "Requests are counted against the credential that presented them, over a fixed window of 60 seconds, and never against a connection.",
+      "reason": "Same counting rule and the same window; A's phrasing is the shorter."
+    },
+    {
+      "segment": "b6",
+      "disposition": "superseded",
+      "replacement": "Opening a second socket therefore buys a caller nothing.",
+      "reason": "Identical point about extra sockets, stated once."
+    },
+    {
+      "segment": "b7",
+      "disposition": "superseded",
+      "replacement": "Requests are counted against the credential that presented them, over a fixed window of 60 seconds, and never against a connection.",
+      "reason": "Also the counting rule; A's sentence already carries it."
+    },
+    {
+      "segment": "b8",
+      "disposition": "superseded",
+      "replacement": "A client spread across eight worker processes is throttled at exactly the point one process would have been — and pays for the extra file descriptors as well.",
+      "reason": "Same claim about worker processes; A adds what the spread costs."
+    },
+    {
+      "segment": "b9",
+      "disposition": "superseded",
+      "replacement": "The default allowance is 100 requests in a window, and a credential marked for batch work is allowed 1000 in the same window.",
+      "reason": "A gives both tiers in one sentence, where B gives only the default."
+    },
+    {
+      "segment": "b10",
+      "disposition": "superseded",
+      "replacement": "A refusal is not an outage, whatever the error class in a client library happens to call it.",
+      "reason": "Same denial that a refusal is an outage; A is the shorter of the two."
+    },
+    {
+      "segment": "b11",
+      "disposition": "superseded",
+      "replacement": "Callers that retry at once are the largest single reason the cap is there at all.",
+      "reason": "Same attribution of the cap to callers that retry at once."
+    },
+    {
+      "segment": "b12",
+      "disposition": "duplicate",
+      "replacement": "How to read a refusal",
+      "reason": "The two documents use the same section heading, character for character."
+    },
+    {
+      "segment": "b13",
+      "disposition": "superseded",
+      "replacement": "The refusal carries a Retry-After header.",
+      "reason": "Both name the header; A's sentence is the one in the merge."
+    },
+    {
+      "segment": "b14",
+      "disposition": "superseded",
+      "replacement": "Its value is a whole number of seconds to wait.",
+      "reason": "Same statement of the header's units."
+    },
+    {
+      "segment": "b15",
+      "disposition": "superseded",
+      "replacement": "Waiting that long and then continuing is the whole of the contract — a client that does it needs nothing else from this document.",
+      "reason": "Both call waiting the whole contract; A says it without the aside."
+    },
+    {
+      "segment": "b16",
+      "disposition": "superseded",
+      "replacement": "The gateway keeps no memory of who backed off politely, so waiting longer than the header asks earns a caller no credit at all.",
+      "reason": "Same point that backing off further earns nothing."
+    },
+    {
+      "segment": "b17",
+      "disposition": "superseded",
+      "replacement": "The body of the refusal is JSON, and it names what the gateway calls the “window” it counted in.",
+      "reason": "Both describe the body; A names the field the gateway counts in."
+    },
+    {
+      "segment": "b18",
+      "disposition": "superseded",
+      "replacement": "None of those fields is a substitute for the header, and a caller that parses the body to compute its own wait is doing the same arithmetic twice.",
+      "reason": "Same warning against recomputing the wait from the body."
+    },
+    {
+      "segment": "b19",
+      "disposition": "superseded",
+      "replacement": "The body is there so that a human reading a log afterwards can see why the request was refused — nothing in it is meant for the retry loop.",
+      "reason": "Both say the body is for the reader of a log, not the retry loop."
+    },
+    {
+      "segment": "b20",
+      "disposition": "superseded",
+      "replacement": "How to retry well",
+      "reason": "Two headings over the same rules; the base document's is kept."
+    },
+    {
+      "segment": "b21",
+      "disposition": "superseded",
+      "replacement": "Four rules, given in the order they should be applied.",
+      "reason": "Same lead-in to four rules given in order."
+    },
+    {
+      "segment": "b22",
+      "disposition": "superseded",
+      "replacement": "Honour the header, every time.",
+      "reason": "Same first rule, stated in A without the negative half."
+    },
+    {
+      "segment": "b23",
+      "disposition": "superseded",
+      "replacement": "The gateway has already done that arithmetic, with information the caller does not have, and it does the same on the 503 path.",
+      "reason": "A carries the arithmetic point and the 503 case in one sentence."
+    },
+    {
+      "segment": "b24",
+      "disposition": "superseded",
+      "replacement": "The gateway has already done that arithmetic, with information the caller does not have, and it does the same on the 503 path.",
+      "reason": "The 503 case is already in A's sentence above."
+    },
+    {
+      "segment": "b25",
+      "disposition": "superseded",
+      "replacement": "A wait derived on the client side is a guess about a counter it cannot see.",
+      "reason": "Same claim that a client-side wait is a guess."
+    },
+    {
+      "segment": "b26",
+      "disposition": "superseded",
+      "replacement": "There is no case at all where a guess is the better of the two.",
+      "reason": "Same dismissal of the guess."
+    },
+    {
+      "segment": "b27",
+      "disposition": "superseded",
+      "replacement": "Retry only what is safe to retry.",
+      "reason": "Both open rule two the same way; A's is the shorter opening."
+    },
+    {
+      "segment": "b28",
+      "disposition": "superseded",
+      "replacement": "A 200 wants nothing, a 429 wants the stated wait, a 500 may be retried once that wait has passed, and a 503 is the overload path.",
+      "reason": "Same four status codes and the same treatment of each."
+    },
+    {
+      "segment": "b29",
+      "disposition": "superseded",
+      "replacement": "A client that folds every non-success into one branch will retry hardest during exactly the incident the cap was installed to survive.",
+      "reason": "Same failure mode when the four cases are folded into one branch."
+    },
+    {
+      "segment": "b30",
+      "disposition": "superseded",
+      "replacement": "Avoid writing that loop.",
+      "reason": "Both close rule two by naming the loop to avoid."
+    },
+    {
+      "segment": "b33",
+      "disposition": "superseded",
+      "replacement": "Nothing else about the two tiers differs in any way.",
+      "reason": "Same statement that nothing else about the two tiers differs."
+    },
+    {
+      "segment": "b34",
+      "disposition": "superseded",
+      "replacement": "Log every refusal seen.",
+      "reason": "Both open rule four with the instruction to log refusals."
+    },
+    {
+      "segment": "b35",
+      "disposition": "superseded",
+      "replacement": "A caller that cannot say how often it was refused last week cannot argue for a larger cap, and nobody at the far end will assemble that argument on its behalf.",
+      "reason": "Same argument about arguing for a larger cap from counts."
+    },
+    {
+      "segment": "b36",
+      "disposition": "superseded",
+      "replacement": "A caller that cannot say how often it was refused last week cannot argue for a larger cap, and nobody at the far end will assemble that argument on its behalf.",
+      "reason": "Also the counts argument; A's sentence already carries it."
+    },
+    {
+      "segment": "b37",
+      "disposition": "superseded",
+      "replacement": "Other refusals and their codes",
+      "reason": "Two headings over the same section; the base document's is kept."
+    },
+    {
+      "segment": "b38",
+      "disposition": "superseded",
+      "replacement": "The gateway refuses a request for three reasons and only one of them is the one above.",
+      "reason": "Same count of the reasons a request is refused."
+    },
+    {
+      "segment": "b39",
+      "disposition": "superseded",
+      "replacement": "The gateway refuses a request for three reasons and only one of them is the one above.",
+      "reason": "Also the three reasons; A's sentence already carries the point."
+    },
+    {
+      "segment": "b40",
+      "disposition": "superseded",
+      "replacement": "A credential may be suspended, a route may be closed for maintenance, or a body may exceed the 5 megabyte limit.",
+      "reason": "Same three non-cap refusals, including the body size limit."
+    },
+    {
+      "segment": "b41",
+      "disposition": "superseded",
+      "replacement": "The distinction matters to a retry loop.",
+      "reason": "Same claim that the distinction matters to a retry loop."
+    },
+    {
+      "segment": "b42",
+      "disposition": "superseded",
+      "replacement": "A loop that waits and retries against a suspended credential spends its whole budget without ever reaching the service — and the log afterwards shows nothing at all except a long run of refusals.",
+      "reason": "Same wasted budget against a suspended credential."
+    },
+    {
+      "segment": "b43",
+      "disposition": "superseded",
+      "replacement": "A loop that waits and retries against a suspended credential spends its whole budget without ever reaching the service — and the log afterwards shows nothing at all except a long run of refusals.",
+      "reason": "Also the wasted budget; A's sentence names what the log shows."
+    },
+    {
+      "segment": "b44",
+      "disposition": "superseded",
+      "replacement": "A caller that can move half its work to a quieter hour usually gets what it needs without any change to the cap at all, which is the outcome everyone prefers.",
+      "reason": "Same point about moving work to a quieter hour."
+    },
+    {
+      "segment": "b45",
+      "disposition": "superseded",
+      "replacement": "A caller that can move half its work to a quieter hour usually gets what it needs without any change to the cap at all, which is the outcome everyone prefers.",
+      "reason": "Also the quieter hour; A's sentence already carries it."
+    },
+    {
+      "segment": "b46",
+      "disposition": "superseded",
+      "replacement": "A cap can be raised, and the number of caps raised without a measurement behind them is 0.",
+      "reason": "Both say a cap is raised on measurement rather than assertion."
+    },
+    {
+      "segment": "b47",
+      "disposition": "superseded",
+      "replacement": "Bring a week of refusal counts, the shape of the traffic across the day, and the deadline that traffic is serving.",
+      "reason": "Same three things to bring when asking for an increase."
+    },
+    {
+      "segment": "b48",
+      "disposition": "superseded",
+      "replacement": "The platform team looks at whether the load is smooth or bursty — a burst is cheaper to smooth than it is to serve at its peak.",
+      "reason": "Same question about smooth against bursty load."
+    },
+    {
+      "segment": "b49",
+      "disposition": "superseded",
+      "replacement": "The platform team looks at whether the load is smooth or bursty — a burst is cheaper to smooth than it is to serve at its peak.",
+      "reason": "Also the burst; A's sentence already carries the comparison."
+    },
+    {
+      "segment": "b50",
+      "disposition": "superseded",
+      "replacement": "Requests reach the platform team through the usual channel, and they are answered within two working days.",
+      "reason": "Same routing of the request to the platform team."
+    },
+    {
+      "segment": "b51",
+      "disposition": "superseded",
+      "replacement": "There is no expedited path and no exception list.",
+      "reason": "Both say there is no expedited path; A adds the exception list."
+    },
+    {
+      "segment": "b52",
+      "disposition": "superseded",
+      "replacement": "Requests reach the platform team through the usual channel, and they are answered within two working days.",
+      "reason": "Also the answer time; A's sentence already carries it."
+    },
+    {
+      "segment": "a31",
+      "disposition": "superseded",
+      "replacement": "A batch credential is allowed 1000 requests in a window, which is 50 times the default and not a separate counting scheme.",
+      "reason": "A spells the multiple out and B gives the numeral, so B's item is taken."
+    },
+    {
+      "segment": "a32",
+      "disposition": "superseded",
+      "replacement": "A batch credential is allowed 1000 requests in a window, which is 50 times the default and not a separate counting scheme.",
+      "reason": "Same allowance; the numeral is invariant and A's words are not."
+    }
+  ]
+}

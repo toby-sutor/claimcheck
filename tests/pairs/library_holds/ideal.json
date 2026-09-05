@@ -1,0 +1,34 @@
+{
+  "dispositions": [
+    {
+      "segment": "b1",
+      "disposition": "superseded",
+      "replacement": "Hold Shelf Management",
+      "reason": "One shelf, two audiences; the staff title names the thing managed."
+    },
+    {
+      "segment": "b2",
+      "disposition": "superseded",
+      "replacement": "Placing an item on the shelf",
+      "reason": "Same section from the staff side."
+    },
+    {
+      "segment": "b5",
+      "disposition": "superseded",
+      "replacement": "How long an item waits",
+      "reason": "A's heading names the rule the section is about."
+    },
+    {
+      "segment": "b9",
+      "disposition": "superseded",
+      "replacement": "Borrowers who cannot collect in time",
+      "reason": "A's heading names the same case."
+    },
+    {
+      "segment": "b12",
+      "disposition": "superseded",
+      "replacement": "Items nobody collects twice",
+      "reason": "A's heading names the same case."
+    }
+  ]
+}

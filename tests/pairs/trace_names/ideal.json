@@ -1,0 +1,34 @@
+{
+  "dispositions": [
+    {
+      "segment": "b1",
+      "disposition": "superseded",
+      "replacement": "Nimbrel Probe stream name  with unsupported symbols",
+      "reason": "One refusal, two titles; A's names the constraint rather than one symbol."
+    },
+    {
+      "segment": "b3",
+      "disposition": "superseded",
+      "replacement": "Topic",
+      "reason": "A's heading opens the same section and its body is kept under it."
+    },
+    {
+      "segment": "b9",
+      "disposition": "superseded",
+      "replacement": "Instructions/Answer",
+      "reason": "A's heading already covers what to do instead."
+    },
+    {
+      "segment": "b11",
+      "disposition": "superseded",
+      "replacement": "Instructions/Answer",
+      "reason": "Same section again under a third name; one heading is kept, not three."
+    },
+    {
+      "segment": "b12",
+      "disposition": "duplicate",
+      "replacement": "No fix at present , rename the stream without the refused symbol",
+      "reason": "B states this under Workaround and again under Resolution, word for word."
+    }
+  ]
+}

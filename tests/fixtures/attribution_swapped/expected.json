@@ -1,0 +1,157 @@
+{
+  "schema_version": 4,
+  "fixture": "attribution_swapped",
+  "kind": "defect",
+  "held_out": true,
+  "description": "Both sources state a read timeout and they disagree. merged.md surfaces both values instead of picking a winner, which is the rewarded behaviour, but attaches each value to the wrong source document: the Deployment Notes are credited with source_a.md's 30 seconds and the Operator Guide with source_b.md's 60 seconds. Every value survives, so the forward probes are clean and the defect is only reachable from merged.md.",
+  "plants": [
+    "attribution swapped between the two named sources"
+  ],
+  "merged": "merged.md",
+  "prompts": {
+    "source_to_merged": "prompts/verify.md",
+    "merged_to_sources": "prompts/verify_reverse.md"
+  },
+  "claim_count_band": {
+    "source_a.md": [
+      3,
+      5
+    ],
+    "source_b.md": [
+      3,
+      5
+    ],
+    "merged.md": [
+      4,
+      7
+    ]
+  },
+  "probes": [
+    {
+      "probe_id": "a-read-timeout",
+      "direction": "source_to_merged",
+      "document": "source_a.md",
+      "line": 4,
+      "text": "The read timeout is 30 seconds.",
+      "must_extract": true,
+      "anchor": {
+        "all_of": [
+          "read timeout is 30 seconds"
+        ]
+      },
+      "match": {
+        "all_of": [
+          "read timeout is 30 seconds"
+        ]
+      },
+      "expected_verdict": "SUPPORTED",
+      "also_acceptable": [],
+      "expected_finding": "none",
+      "expected_evidence_contains": [
+        "30 seconds"
+      ]
+    },
+    {
+      "probe_id": "b-read-timeout",
+      "direction": "source_to_merged",
+      "document": "source_b.md",
+      "line": 4,
+      "text": "The read timeout is 60 seconds.",
+      "must_extract": true,
+      "anchor": {
+        "all_of": [
+          "read timeout is 60 seconds"
+        ]
+      },
+      "match": {
+        "all_of": [
+          "read timeout is 60 seconds"
+        ]
+      },
+      "expected_verdict": "SUPPORTED",
+      "also_acceptable": [],
+      "expected_finding": "none",
+      "expected_evidence_contains": [
+        "60 seconds"
+      ]
+    },
+    {
+      "probe_id": "m-notes-timeout-attribution",
+      "direction": "merged_to_sources",
+      "document": "merged.md",
+      "line": 7,
+      "text": "The Deployment Notes state the read timeout is 30 seconds.",
+      "must_extract": false,
+      "anchor": {
+        "all_of": [
+          "According to the Deployment Notes",
+          "read timeout is 30 seconds"
+        ]
+      },
+      "match": {
+        "all_of": [
+          "Deployment Notes",
+          "read timeout is 30 seconds"
+        ]
+      },
+      "expected_verdict": "CONTRADICTED",
+      "also_acceptable": [],
+      "expected_finding": "contradicted",
+      "expected_evidence_contains": [
+        "60"
+      ],
+      "expected_evidence_source": [
+        "source_b.md"
+      ],
+      "note": "source_b.md is the Deployment Notes and states 60 seconds, so the merge attributes a value to a document that states a different one. The discriminating span cannot be excluded from merged.md here: merged.md surfaces both 30 and 60 by design."
+    },
+    {
+      "probe_id": "m-guide-timeout-attribution",
+      "direction": "merged_to_sources",
+      "document": "merged.md",
+      "line": 8,
+      "text": "The Operator Guide states the read timeout is 60 seconds.",
+      "must_extract": false,
+      "anchor": {
+        "all_of": [
+          "According to the Operator Guide",
+          "read timeout is 60 seconds"
+        ]
+      },
+      "match": {
+        "all_of": [
+          "Operator Guide",
+          "read timeout is 60 seconds"
+        ]
+      },
+      "expected_verdict": "CONTRADICTED",
+      "also_acceptable": [],
+      "expected_finding": "contradicted",
+      "expected_evidence_contains": [
+        "30"
+      ],
+      "expected_evidence_source": [
+        "source_a.md"
+      ],
+      "note": "source_a.md is the Operator Guide and states 30 seconds, so this line attributes a value to a document that states a different one -- the other half of the same swap as m-notes-timeout-attribution. Probed separately because a finding on it is a correct reading, and until this probe existed every arm that made it was recorded as having invented a finding."
+    }
+  ],
+  "must_not_extract": [],
+  "expected_conflicts": [
+    {
+      "conflict_id": "read-timeout",
+      "attribute": "read_timeout",
+      "probes": [
+        "a-read-timeout",
+        "b-read-timeout"
+      ],
+      "reason": "source_a.md states 30 seconds and source_b.md states 60 seconds for the same attribute",
+      "human_decision_required": true,
+      "note": "Surfaced by merged.md rather than silently resolved, as in conflict_surfaced. Detecting it is an M5 assertion."
+    }
+  ],
+  "expected_exit_code": {
+    "strict": 1,
+    "lenient": 1
+  }
+}

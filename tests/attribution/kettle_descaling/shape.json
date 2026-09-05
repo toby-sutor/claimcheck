@@ -1,0 +1,8 @@
+{
+  "shape": 8,
+  "name": "no qualifier on either title",
+  "must_fire": false,
+  "merged_under_audit": "ideal.md",
+  "title_audience": "none stated",
+  "why": "Neither title names a reader, so a check that needs a qualifier must be silent here and must be seen to be silent. Absent-by-accident and correctly-silent are the same output and only this fixture separates them."
+}

@@ -1,0 +1,34 @@
+{
+  "dispositions": [
+    {
+      "segment": "b1",
+      "disposition": "superseded",
+      "replacement": "Freezer Alarm Response - Night Shift",
+      "reason": "Same checklist; A's title names the shift that carries it."
+    },
+    {
+      "segment": "b2",
+      "disposition": "superseded",
+      "replacement": "What triggers an alarm",
+      "reason": "A's heading covers the same section."
+    },
+    {
+      "segment": "b5",
+      "disposition": "superseded",
+      "replacement": "If the door is ajar",
+      "reason": "A's heading names the case B's seal check belongs to."
+    },
+    {
+      "segment": "b8",
+      "disposition": "superseded",
+      "replacement": "If the temperature keeps rising",
+      "reason": "A's heading names when to escalate."
+    },
+    {
+      "segment": "b11",
+      "disposition": "superseded",
+      "replacement": "First response",
+      "reason": "The logging step sits under A's first-response heading."
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "dispositions": [
+    {
+      "segment": "b1",
+      "disposition": "superseded",
+      "replacement": "Badge Access - Front Desk Procedure",
+      "reason": "Both documents are the same procedure; the front desk title is the fuller one."
+    }
+  ]
+}

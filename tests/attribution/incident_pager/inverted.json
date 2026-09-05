@@ -1,0 +1,10 @@
+{
+  "dispositions": [
+    {
+      "segment": "b1",
+      "disposition": "superseded",
+      "replacement": "Incident Pager - On-Call Engineer",
+      "reason": "Both documents are the same pager procedure; the on-call title is the base."
+    }
+  ]
+}

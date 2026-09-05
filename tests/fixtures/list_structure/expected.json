@@ -1,0 +1,361 @@
+{
+  "schema_version": 4,
+  "fixture": "list_structure",
+  "held_out": true,
+  "kind": "guard",
+  "description": "Both sources state their facts as bullet lists of separate atomic items, and the merge keeps every item separate; nothing is fused and nothing is lost.",
+  "note": "The regression fixture for docs/DECISIONS.md entry 115. Everything but the bullet structure is held constant: the facts are the shared pool, the values agree with ordering_only, the two sources share one item and contradict in nothing, and the merge consolidates their common section rather than stapling them. The one thing this fixture varies is that every fact arrives as a list item rather than as prose. Under the rendering in force before entry 115 the merge side was shown these lines with their notation stripped, adjacent items were fused into conjoined sentences, and the reverse pass reported the conjunction as invented - a clean fixture failing with an invented finding. That is the must-fire proof; the exit code 0 asserted here, and the four fusion assertions in must_not_extract, are the must-not-fire regression guard. held_out stays true only while no prompt is tuned against it.",
+  "plants": [],
+  "merged": "merged.md",
+  "prompts": {
+    "source_to_merged": "prompts/verify.md",
+    "merged_to_sources": "prompts/verify_reverse.md"
+  },
+  "claim_count_band": {
+    "source_a.md": [
+      4,
+      9
+    ],
+    "source_b.md": [
+      4,
+      9
+    ],
+    "merged.md": [
+      7,
+      13
+    ]
+  },
+  "probes": [
+    {
+      "probe_id": "a-listen-port",
+      "direction": "source_to_merged",
+      "document": "source_a.md",
+      "line": 7,
+      "text": "The listen port is 8443.",
+      "must_extract": true,
+      "anchor": {
+        "all_of": [
+          "Listen port",
+          "8443"
+        ]
+      },
+      "match": {
+        "all_of": [
+          "listen port",
+          "8443"
+        ]
+      },
+      "expected_verdict": "SUPPORTED",
+      "also_acceptable": [],
+      "expected_finding": "none",
+      "note": "First item under its heading. A merge that fuses upward would attach a section title to a fact."
+    },
+    {
+      "probe_id": "a-connect-timeout",
+      "direction": "source_to_merged",
+      "document": "source_a.md",
+      "line": 8,
+      "text": "The connect timeout is 30 seconds.",
+      "must_extract": true,
+      "anchor": {
+        "all_of": [
+          "Connect timeout",
+          "30 seconds"
+        ]
+      },
+      "match": {
+        "all_of": [
+          "connect timeout",
+          "30 seconds"
+        ]
+      },
+      "expected_verdict": "SUPPORTED",
+      "also_acceptable": [],
+      "expected_finding": "none",
+      "expected_evidence_contains": [
+        "30 seconds"
+      ],
+      "note": "Both sources state this item, identically. It is the fixture's overlap, so the merge is a merge and not a staple."
+    },
+    {
+      "probe_id": "a-max-connections",
+      "direction": "source_to_merged",
+      "document": "source_a.md",
+      "line": 12,
+      "text": "The maximum number of concurrent connections is 512.",
+      "must_extract": true,
+      "anchor": {
+        "all_of": [
+          "Maximum concurrent connections",
+          "512"
+        ]
+      },
+      "match": {
+        "all_of": [
+          "concurrent connections",
+          "512"
+        ]
+      },
+      "expected_verdict": "SUPPORTED",
+      "also_acceptable": [],
+      "expected_finding": "none",
+      "expected_evidence_contains": [
+        "512"
+      ]
+    },
+    {
+      "probe_id": "a-retry-attempts",
+      "direction": "source_to_merged",
+      "document": "source_a.md",
+      "line": 13,
+      "text": "A request is retried at most 3 times.",
+      "must_extract": true,
+      "anchor": {
+        "all_of": [
+          "Retry attempts",
+          "3"
+        ]
+      },
+      "match": {
+        "all_of": [
+          "retried",
+          "3"
+        ]
+      },
+      "expected_verdict": "SUPPORTED",
+      "also_acceptable": [],
+      "expected_finding": "none",
+      "note": "Last item of source_a.md, so this probe also exercises the upper bound of the anchoring window."
+    },
+    {
+      "probe_id": "b-connect-timeout",
+      "direction": "source_to_merged",
+      "document": "source_b.md",
+      "line": 7,
+      "text": "The connect timeout is 30 seconds.",
+      "must_extract": true,
+      "anchor": {
+        "all_of": [
+          "Connect timeout",
+          "30 seconds"
+        ]
+      },
+      "match": {
+        "all_of": [
+          "connect timeout",
+          "30 seconds"
+        ]
+      },
+      "expected_verdict": "SUPPORTED",
+      "also_acceptable": [],
+      "expected_finding": "none",
+      "note": "The same fact from the other side. Stated once in the merge, supported for both."
+    },
+    {
+      "probe_id": "b-read-timeout",
+      "direction": "source_to_merged",
+      "document": "source_b.md",
+      "line": 8,
+      "text": "The read timeout is 120 seconds.",
+      "must_extract": true,
+      "anchor": {
+        "all_of": [
+          "Read timeout",
+          "120 seconds"
+        ]
+      },
+      "match": {
+        "all_of": [
+          "read timeout",
+          "120 seconds"
+        ]
+      },
+      "expected_verdict": "SUPPORTED",
+      "also_acceptable": [],
+      "expected_finding": "none",
+      "expected_evidence_contains": [
+        "120 seconds"
+      ]
+    },
+    {
+      "probe_id": "b-log-format",
+      "direction": "source_to_merged",
+      "document": "source_b.md",
+      "line": 12,
+      "text": "Access logs are written in JSON Lines format.",
+      "must_extract": true,
+      "anchor": {
+        "all_of": [
+          "Access log format",
+          "JSON Lines"
+        ]
+      },
+      "match": {
+        "all_of": [
+          "JSON Lines"
+        ]
+      },
+      "expected_verdict": "SUPPORTED",
+      "also_acceptable": [],
+      "expected_finding": "none"
+    },
+    {
+      "probe_id": "b-health-path",
+      "direction": "source_to_merged",
+      "document": "source_b.md",
+      "line": 13,
+      "text": "The health check path is /-/healthy.",
+      "must_extract": true,
+      "anchor": {
+        "all_of": [
+          "Health check path",
+          "/-/healthy"
+        ]
+      },
+      "match": {
+        "all_of": [
+          "health check path",
+          "/-/healthy"
+        ]
+      },
+      "expected_verdict": "SUPPORTED",
+      "also_acceptable": [],
+      "expected_finding": "none"
+    },
+    {
+      "probe_id": "merged-connect-timeout",
+      "direction": "merged_to_sources",
+      "document": "merged.md",
+      "line": 8,
+      "text": "The connect timeout is 30 seconds.",
+      "must_extract": true,
+      "anchor": {
+        "all_of": [
+          "Connect timeout",
+          "30 seconds"
+        ]
+      },
+      "match": {
+        "all_of": [
+          "connect timeout",
+          "30 seconds"
+        ]
+      },
+      "expected_verdict": "SUPPORTED",
+      "also_acceptable": [],
+      "expected_finding": "none",
+      "note": "Reverse-direction guard, and the item this fixture exists for. Under the rendering in force before docs/DECISIONS.md entry 115 the merge model was shown these lines with their bullets stripped, fused an item with its neighbour, and the reverse pass correctly reported the conjoined sentence as invented. Nothing in merged.md is unsupported, so a reverse finding here is over-flagging or a fusion."
+    },
+    {
+      "probe_id": "merged-read-timeout",
+      "direction": "merged_to_sources",
+      "document": "merged.md",
+      "line": 9,
+      "text": "The read timeout is 120 seconds.",
+      "must_extract": true,
+      "anchor": {
+        "all_of": [
+          "Read timeout",
+          "120 seconds"
+        ]
+      },
+      "match": {
+        "all_of": [
+          "read timeout",
+          "120 seconds"
+        ]
+      },
+      "expected_verdict": "SUPPORTED",
+      "also_acceptable": [],
+      "expected_finding": "none",
+      "note": "Last item before a heading. A fuse across the section boundary would put a Networking value in a Limits claim."
+    },
+    {
+      "probe_id": "merged-health-path",
+      "direction": "merged_to_sources",
+      "document": "merged.md",
+      "line": 19,
+      "text": "The health check path is /-/healthy.",
+      "must_extract": true,
+      "anchor": {
+        "all_of": [
+          "Health check path",
+          "/-/healthy"
+        ]
+      },
+      "match": {
+        "all_of": [
+          "health check path",
+          "/-/healthy"
+        ]
+      },
+      "expected_verdict": "SUPPORTED",
+      "also_acceptable": [],
+      "expected_finding": "none",
+      "note": "Final line of merged.md."
+    }
+  ],
+  "must_not_extract": [
+    {
+      "assertion_id": "no-fused-port-and-connect-timeout-source-a",
+      "document": "source_a.md",
+      "basis": "absent",
+      "pattern": "(?i)\\b8443\\b[^\\n]*\\b30 seconds\\b|\\b30 seconds\\b[^\\n]*\\b8443\\b",
+      "reason": "the listen port and the connect timeout are two list items, one fact each, adjacent in source_a.md and in the merge. A single claim carrying both values is two facts fused into one sentence, which is what the merge model did when it was shown these lines with their bullets stripped: adjacent items became a conjoined sentence and the reverse pass reported it as invented. See docs/DECISIONS.md entry 115."
+    },
+    {
+      "assertion_id": "no-fused-connections-and-retries-source-a",
+      "document": "source_a.md",
+      "basis": "absent",
+      "pattern": "(?i)\\b512\\b[^\\n]*\\bretr\\w+|\\bretr\\w+[^\\n]*\\b512\\b",
+      "reason": "the connection limit and the retry limit are two list items, one fact each, adjacent under Limits. They constrain different things, so a claim naming both has fused two facts. See docs/DECISIONS.md entry 115."
+    },
+    {
+      "assertion_id": "no-fused-connect-and-read-timeout-source-b",
+      "document": "source_b.md",
+      "basis": "absent",
+      "pattern": "(?i)\\b30 seconds\\b[^\\n]*\\b120 seconds\\b|\\b120 seconds\\b[^\\n]*\\b30 seconds\\b",
+      "reason": "the connect timeout and the read timeout are two list items, one fact each, adjacent in source_b.md and in the merge. A claim carrying both values is a fusion of adjacent items, not a merge. See docs/DECISIONS.md entry 115."
+    },
+    {
+      "assertion_id": "no-fused-log-format-and-health-path-source-b",
+      "document": "source_b.md",
+      "basis": "absent",
+      "pattern": "(?i)\\bJSON Lines\\b[^\\n]*/-/healthy|/-/healthy[^\\n]*\\bJSON Lines\\b",
+      "reason": "the access log format and the health check path are two list items, one fact each, adjacent under Logging, and they are unrelated to one another. A claim carrying both has fused two facts. See docs/DECISIONS.md entry 115."
+    },
+    {
+      "assertion_id": "no-fused-port-and-connect-timeout-merged",
+      "document": "merged.md",
+      "basis": "absent",
+      "pattern": "(?i)\\b8443\\b[^\\n]*\\b30 seconds\\b|\\b30 seconds\\b[^\\n]*\\b8443\\b",
+      "reason": "the listen port and the connect timeout are two list items, one fact each, adjacent in source_a.md and in the merge. A single claim carrying both values is two facts fused into one sentence, which is what the merge model did when it was shown these lines with their bullets stripped: adjacent items became a conjoined sentence and the reverse pass reported it as invented. See docs/DECISIONS.md entry 115."
+    },
+    {
+      "assertion_id": "no-fused-connect-and-read-timeout-merged",
+      "document": "merged.md",
+      "basis": "absent",
+      "pattern": "(?i)\\b30 seconds\\b[^\\n]*\\b120 seconds\\b|\\b120 seconds\\b[^\\n]*\\b30 seconds\\b",
+      "reason": "the connect timeout and the read timeout are two list items, one fact each, adjacent in source_b.md and in the merge. A claim carrying both values is a fusion of adjacent items, not a merge. See docs/DECISIONS.md entry 115."
+    },
+    {
+      "assertion_id": "no-fused-connections-and-retries-merged",
+      "document": "merged.md",
+      "basis": "absent",
+      "pattern": "(?i)\\b512\\b[^\\n]*\\bretr\\w+|\\bretr\\w+[^\\n]*\\b512\\b",
+      "reason": "the connection limit and the retry limit are two list items, one fact each, adjacent under Limits. They constrain different things, so a claim naming both has fused two facts. See docs/DECISIONS.md entry 115."
+    },
+    {
+      "assertion_id": "no-fused-log-format-and-health-path-merged",
+      "document": "merged.md",
+      "basis": "absent",
+      "pattern": "(?i)\\bJSON Lines\\b[^\\n]*/-/healthy|/-/healthy[^\\n]*\\bJSON Lines\\b",
+      "reason": "the access log format and the health check path are two list items, one fact each, adjacent under Logging, and they are unrelated to one another. A claim carrying both has fused two facts. See docs/DECISIONS.md entry 115."
+    }
+  ],
+  "expected_conflicts": [],
+  "expected_exit_code": {
+    "strict": 0,
+    "lenient": 0
+  }
+}

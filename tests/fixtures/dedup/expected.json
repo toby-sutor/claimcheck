@@ -1,0 +1,293 @@
+{
+  "schema_version": 4,
+  "fixture": "dedup",
+  "kind": "guard",
+  "held_out": true,
+  "description": "Overlapping sources correctly deduplicated. The listen port and health check path appear in both sources and once in the merge; the read timeout is A-only and the TLS version is B-only. Probe pairs a-listen-port/b-listen-port and a-health-path/b-health-path are identical claims from different documents and must both be SUPPORTED. expected_evidence_source distinguishes shared facts (either source acceptable) from single-source facts (one file only), which is the only assertion here that a verdict-level check cannot make.",
+  "plants": [],
+  "merged": "merged.md",
+  "prompts": {
+    "source_to_merged": "prompts/verify.md",
+    "merged_to_sources": "prompts/verify_reverse.md"
+  },
+  "claim_count_band": {
+    "source_a.md": [
+      3,
+      5
+    ],
+    "source_b.md": [
+      3,
+      5
+    ],
+    "merged.md": [
+      4,
+      6
+    ]
+  },
+  "probes": [
+    {
+      "probe_id": "a-listen-port",
+      "direction": "source_to_merged",
+      "document": "source_a.md",
+      "line": 3,
+      "text": "The relay listens on port 8443.",
+      "must_extract": true,
+      "anchor": {
+        "all_of": [
+          "listens on port 8443"
+        ]
+      },
+      "match": {
+        "all_of": [
+          "listens on port 8443"
+        ]
+      },
+      "expected_verdict": "SUPPORTED",
+      "also_acceptable": [],
+      "expected_finding": "none",
+      "expected_evidence_contains": [
+        "8443"
+      ]
+    },
+    {
+      "probe_id": "a-health-path",
+      "direction": "source_to_merged",
+      "document": "source_a.md",
+      "line": 4,
+      "text": "The health check path is /healthz.",
+      "must_extract": true,
+      "anchor": {
+        "all_of": [
+          "/healthz"
+        ]
+      },
+      "match": {
+        "all_of": [
+          "health check path",
+          "/healthz"
+        ]
+      },
+      "expected_verdict": "SUPPORTED",
+      "also_acceptable": [],
+      "expected_finding": "none",
+      "expected_evidence_contains": [
+        "/healthz"
+      ]
+    },
+    {
+      "probe_id": "a-read-timeout",
+      "direction": "source_to_merged",
+      "document": "source_a.md",
+      "line": 5,
+      "text": "The read timeout is 30 seconds.",
+      "must_extract": true,
+      "anchor": {
+        "all_of": [
+          "read timeout is 30 seconds"
+        ]
+      },
+      "match": {
+        "all_of": [
+          "read timeout is 30 seconds"
+        ]
+      },
+      "expected_verdict": "SUPPORTED",
+      "also_acceptable": [],
+      "expected_finding": "none",
+      "expected_evidence_contains": [
+        "30 seconds"
+      ]
+    },
+    {
+      "probe_id": "b-listen-port",
+      "direction": "source_to_merged",
+      "document": "source_b.md",
+      "line": 3,
+      "text": "The relay listens on port 8443.",
+      "must_extract": true,
+      "anchor": {
+        "all_of": [
+          "listens on port 8443"
+        ]
+      },
+      "match": {
+        "all_of": [
+          "listens on port 8443"
+        ]
+      },
+      "expected_verdict": "SUPPORTED",
+      "also_acceptable": [],
+      "expected_finding": "none",
+      "expected_evidence_contains": [
+        "8443"
+      ]
+    },
+    {
+      "probe_id": "b-health-path",
+      "direction": "source_to_merged",
+      "document": "source_b.md",
+      "line": 4,
+      "text": "The health check path is /healthz.",
+      "must_extract": true,
+      "anchor": {
+        "all_of": [
+          "/healthz"
+        ]
+      },
+      "match": {
+        "all_of": [
+          "health check path",
+          "/healthz"
+        ]
+      },
+      "expected_verdict": "SUPPORTED",
+      "also_acceptable": [],
+      "expected_finding": "none",
+      "expected_evidence_contains": [
+        "/healthz"
+      ]
+    },
+    {
+      "probe_id": "b-tls-min",
+      "direction": "source_to_merged",
+      "document": "source_b.md",
+      "line": 5,
+      "text": "The minimum TLS version is 1.2.",
+      "must_extract": true,
+      "anchor": {
+        "all_of": [
+          "minimum TLS version is 1.2"
+        ]
+      },
+      "match": {
+        "all_of": [
+          "minimum TLS version is 1.2"
+        ]
+      },
+      "expected_verdict": "SUPPORTED",
+      "also_acceptable": [],
+      "expected_finding": "none",
+      "expected_evidence_contains": [
+        "1.2"
+      ]
+    },
+    {
+      "probe_id": "m-listen-port",
+      "direction": "merged_to_sources",
+      "document": "merged.md",
+      "line": 3,
+      "text": "The relay listens on port 8443.",
+      "must_extract": true,
+      "anchor": {
+        "all_of": [
+          "listens on port 8443"
+        ]
+      },
+      "match": {
+        "all_of": [
+          "listens on port 8443"
+        ]
+      },
+      "expected_verdict": "SUPPORTED",
+      "also_acceptable": [],
+      "expected_finding": "none",
+      "expected_evidence_contains": [
+        "8443"
+      ],
+      "expected_evidence_source": [
+        "source_a.md",
+        "source_b.md"
+      ],
+      "note": "Stated identically in both sources. Either file is a correct answer, which is what a multi-element expected_evidence_source means."
+    },
+    {
+      "probe_id": "m-health-path",
+      "direction": "merged_to_sources",
+      "document": "merged.md",
+      "line": 4,
+      "text": "The health check path is /healthz.",
+      "must_extract": true,
+      "anchor": {
+        "all_of": [
+          "/healthz"
+        ]
+      },
+      "match": {
+        "all_of": [
+          "health check path",
+          "/healthz"
+        ]
+      },
+      "expected_verdict": "SUPPORTED",
+      "also_acceptable": [],
+      "expected_finding": "none",
+      "expected_evidence_contains": [
+        "/healthz"
+      ],
+      "expected_evidence_source": [
+        "source_a.md",
+        "source_b.md"
+      ]
+    },
+    {
+      "probe_id": "m-read-timeout",
+      "direction": "merged_to_sources",
+      "document": "merged.md",
+      "line": 5,
+      "text": "The read timeout is 30 seconds.",
+      "must_extract": true,
+      "anchor": {
+        "all_of": [
+          "read timeout is 30 seconds"
+        ]
+      },
+      "match": {
+        "all_of": [
+          "read timeout is 30 seconds"
+        ]
+      },
+      "expected_verdict": "SUPPORTED",
+      "also_acceptable": [],
+      "expected_finding": "none",
+      "expected_evidence_contains": [
+        "30 seconds"
+      ],
+      "expected_evidence_source": [
+        "source_a.md"
+      ]
+    },
+    {
+      "probe_id": "m-tls-min",
+      "direction": "merged_to_sources",
+      "document": "merged.md",
+      "line": 6,
+      "text": "The minimum TLS version is 1.2.",
+      "must_extract": true,
+      "anchor": {
+        "all_of": [
+          "minimum TLS version is 1.2"
+        ]
+      },
+      "match": {
+        "all_of": [
+          "minimum TLS version is 1.2"
+        ]
+      },
+      "expected_verdict": "SUPPORTED",
+      "also_acceptable": [],
+      "expected_finding": "none",
+      "expected_evidence_contains": [
+        "1.2"
+      ],
+      "expected_evidence_source": [
+        "source_b.md"
+      ]
+    }
+  ],
+  "must_not_extract": [],
+  "expected_conflicts": [],
+  "expected_exit_code": {
+    "strict": 0,
+    "lenient": 0
+  }
+}

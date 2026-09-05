@@ -1,0 +1,10 @@
+{
+  "dispositions": [
+    {
+      "segment": "b1",
+      "disposition": "superseded",
+      "replacement": "Sample Intake - Courier",
+      "reason": "One intake procedure written twice; the courier title is the base document's."
+    }
+  ]
+}

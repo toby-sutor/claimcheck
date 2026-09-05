@@ -1,0 +1,10 @@
+{
+  "dispositions": [
+    {
+      "segment": "b1",
+      "disposition": "superseded",
+      "replacement": "Parking Permits",
+      "reason": "The merge covers both audiences, so the neutral title is the right one."
+    }
+  ]
+}

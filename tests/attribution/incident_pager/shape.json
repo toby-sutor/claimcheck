@@ -1,0 +1,13 @@
+{
+  "shape": 1,
+  "name": "audience inversion",
+  "defect": "authority_mismatch",
+  "audience_model_required": true,
+  "must_fire": true,
+  "merged_under_audit": "inverted.md",
+  "title_audience": "the on-call engineer",
+  "giveaway": "Draft the customer notice together with the communications lead and approve it before anyone publishes it.",
+  "why": "An on-call engineer has no authority to approve an external customer notice, and none to call the executive sponsor. Both instructions are the duty manager's. Under inverted.md's title they read as the engineer's own steps.",
+  "defect_why": "Nothing in the merged document forbids the on-call engineer from approving a customer notice or calling the executive sponsor. No sentence contradicts another. The only thing wrong is that the stated reader lacks the authority, and that fact is nowhere in either source - it comes from knowing what an on-call engineer is. A checker needs an audience model.",
+  "inverted_differs_from_ideal_by": "heading qualifiers only; section order is ideal.md's. Exactly one variable separates the two files, so a predicate cannot score on order."
+}

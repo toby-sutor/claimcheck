@@ -1,0 +1,298 @@
+{
+  "schema_version": 4,
+  "fixture": "paraphrase",
+  "held_out": false,
+  "kind": "guard",
+  "description": "Both sources and the merge state the same facts in three different wordings; every value is identical.",
+  "plants": [],
+  "merged": "merged.md",
+  "prompts": {
+    "source_to_merged": "prompts/verify.md",
+    "merged_to_sources": "prompts/verify_reverse.md"
+  },
+  "claim_count_band": {
+    "source_a.md": [
+      6,
+      12
+    ],
+    "source_b.md": [
+      6,
+      12
+    ],
+    "merged.md": [
+      6,
+      12
+    ]
+  },
+  "probes": [
+    {
+      "probe_id": "a-listen-port",
+      "direction": "source_to_merged",
+      "document": "source_a.md",
+      "line": 7,
+      "text": "Vandrell Relay binds to port 8443 unless the port is overridden.",
+      "must_extract": true,
+      "anchor": {
+        "all_of": [
+          "binds to port",
+          "8443"
+        ]
+      },
+      "match": {
+        "all_of": [
+          "binds to port",
+          "8443"
+        ]
+      },
+      "expected_verdict": "SUPPORTED",
+      "also_acceptable": [],
+      "expected_finding": "none",
+      "note": "\"binds to port\" against merged.md's \"default listen port is\" — same fact, no shared verb."
+    },
+    {
+      "probe_id": "a-connect-timeout",
+      "direction": "source_to_merged",
+      "document": "source_a.md",
+      "line": 8,
+      "text": "A connection that is not established within 30 seconds is abandoned.",
+      "must_extract": true,
+      "anchor": {
+        "all_of": [
+          "30 seconds",
+          "abandoned"
+        ]
+      },
+      "match": {
+        "all_of": [
+          "30 seconds",
+          "abandoned"
+        ]
+      },
+      "expected_verdict": "SUPPORTED",
+      "also_acceptable": [],
+      "expected_finding": "none",
+      "expected_evidence_contains": [
+        "30 seconds"
+      ]
+    },
+    {
+      "probe_id": "a-read-timeout",
+      "direction": "source_to_merged",
+      "document": "source_a.md",
+      "line": 9,
+      "text": "The relay waits up to 120 seconds for a response.",
+      "must_extract": true,
+      "anchor": {
+        "all_of": [
+          "waits up to 120 seconds"
+        ]
+      },
+      "match": {
+        "all_of": [
+          "waits up to 120 seconds"
+        ]
+      },
+      "expected_verdict": "SUPPORTED",
+      "also_acceptable": [],
+      "expected_finding": "none"
+    },
+    {
+      "probe_id": "a-max-connections",
+      "direction": "source_to_merged",
+      "document": "source_a.md",
+      "line": 13,
+      "text": "No more than 512 connections may be open at the same time.",
+      "must_extract": true,
+      "anchor": {
+        "all_of": [
+          "512 connections",
+          "same time"
+        ]
+      },
+      "match": {
+        "all_of": [
+          "512 connections",
+          "same time"
+        ]
+      },
+      "expected_verdict": "SUPPORTED",
+      "also_acceptable": [],
+      "expected_finding": "none"
+    },
+    {
+      "probe_id": "a-tls-version",
+      "direction": "source_to_merged",
+      "document": "source_a.md",
+      "line": 18,
+      "text": "Protocol versions older than TLS 1.2 are rejected.",
+      "must_extract": true,
+      "anchor": {
+        "all_of": [
+          "older than TLS 1.2",
+          "rejected"
+        ]
+      },
+      "match": {
+        "all_of": [
+          "older than TLS 1.2",
+          "rejected"
+        ]
+      },
+      "expected_verdict": "SUPPORTED",
+      "also_acceptable": [],
+      "expected_finding": "none",
+      "note": "Stated as a prohibition in source_a and as a floor in merged.md. Equivalent, but only if the verify pass reasons about the direction of the comparison."
+    },
+    {
+      "probe_id": "b-retry-limit",
+      "direction": "source_to_merged",
+      "document": "source_b.md",
+      "line": 11,
+      "text": "A request is retried at most 3 times.",
+      "must_extract": true,
+      "anchor": {
+        "all_of": [
+          "Retry attempts per request",
+          "3"
+        ]
+      },
+      "match": {
+        "all_of": [
+          "request",
+          "3"
+        ]
+      },
+      "expected_verdict": "SUPPORTED",
+      "also_acceptable": [],
+      "expected_finding": "none",
+      "note": "The substrings are weak because source_b.md writes this fact as a list item, 'Retry attempts per request: 3', while any extracted claim will write it as a sentence. match.all_of has to satisfy both, and the only wording they share is 'request' and '3'. See SCHEMA.md on what match.all_of is being asked to do."
+    },
+    {
+      "probe_id": "b-log-format",
+      "direction": "source_to_merged",
+      "document": "source_b.md",
+      "line": 16,
+      "text": "The access log uses JSON Lines, one record per line.",
+      "must_extract": true,
+      "anchor": {
+        "all_of": [
+          "JSON Lines",
+          "one record per line"
+        ]
+      },
+      "match": {
+        "all_of": [
+          "JSON Lines",
+          "one record per line"
+        ]
+      },
+      "expected_verdict": "SUPPORTED",
+      "also_acceptable": [],
+      "expected_finding": "none",
+      "note": "merged.md never uses the phrase \"JSON Lines\", only \"one JSON object per line\". A verify pass matching on terminology rather than meaning reports this MISSING."
+    },
+    {
+      "probe_id": "b-health-path",
+      "direction": "source_to_merged",
+      "document": "source_b.md",
+      "line": 17,
+      "text": "Health checks target /-/healthy.",
+      "must_extract": true,
+      "anchor": {
+        "all_of": [
+          "health checks",
+          "/-/healthy"
+        ]
+      },
+      "match": {
+        "all_of": [
+          "health checks",
+          "/-/healthy"
+        ]
+      },
+      "expected_verdict": "SUPPORTED",
+      "also_acceptable": [],
+      "expected_finding": "none",
+      "note": "Final line of source_b.md, so this probe also exercises the upper bound of the anchoring window."
+    },
+    {
+      "probe_id": "merged-listen-port",
+      "direction": "merged_to_sources",
+      "document": "merged.md",
+      "line": 7,
+      "text": "The relay's default listen port is 8443.",
+      "must_extract": true,
+      "anchor": {
+        "all_of": [
+          "default listen port",
+          "8443"
+        ]
+      },
+      "match": {
+        "all_of": [
+          "default listen port",
+          "8443"
+        ]
+      },
+      "expected_verdict": "SUPPORTED",
+      "also_acceptable": [],
+      "expected_finding": "none"
+    },
+    {
+      "probe_id": "merged-tls-version",
+      "direction": "merged_to_sources",
+      "document": "merged.md",
+      "line": 18,
+      "text": "The relay will not negotiate any protocol version below TLS 1.2.",
+      "must_extract": true,
+      "anchor": {
+        "all_of": [
+          "will not negotiate",
+          "TLS 1.2"
+        ]
+      },
+      "match": {
+        "all_of": [
+          "will not negotiate",
+          "TLS 1.2"
+        ]
+      },
+      "expected_verdict": "SUPPORTED",
+      "also_acceptable": [],
+      "expected_finding": "none",
+      "expected_evidence_contains": [
+        "TLS 1.2"
+      ]
+    },
+    {
+      "probe_id": "merged-read-timeout",
+      "direction": "merged_to_sources",
+      "document": "merged.md",
+      "line": 9,
+      "text": "The relay allows a response 120 seconds to arrive before it times out.",
+      "must_extract": true,
+      "anchor": {
+        "all_of": [
+          "120 seconds",
+          "times out"
+        ]
+      },
+      "match": {
+        "all_of": [
+          "120 seconds",
+          "times out"
+        ]
+      },
+      "expected_verdict": "SUPPORTED",
+      "also_acceptable": [],
+      "expected_finding": "none",
+      "note": "Reverse-direction guard: every fact in merged.md is present in a source, so a reverse pass that flags anything here is over-flagging."
+    }
+  ],
+  "must_not_extract": [],
+  "expected_conflicts": [],
+  "expected_exit_code": {
+    "strict": 0,
+    "lenient": 0
+  }
+}

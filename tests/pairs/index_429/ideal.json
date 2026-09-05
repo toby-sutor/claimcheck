@@ -1,0 +1,28 @@
+{
+  "dispositions": [
+    {
+      "segment": "b1",
+      "disposition": "superseded",
+      "replacement": "Nimbrel Ledger append rejected with HTTP 429",
+      "reason": "One subject, two titles; A's names the symptom rather than one deployment."
+    },
+    {
+      "segment": "b3",
+      "disposition": "superseded",
+      "replacement": "Issue Description",
+      "reason": "B's summary states the issue, so it sits under A's heading for it."
+    },
+    {
+      "segment": "b15",
+      "disposition": "superseded",
+      "replacement": "Cause",
+      "reason": "A's Cause section is where these belong; one heading for one subject."
+    },
+    {
+      "segment": "b21",
+      "disposition": "superseded",
+      "replacement": "Resolution",
+      "reason": "A's heading covers the same ground and the proposals are kept under it."
+    }
+  ]
+}

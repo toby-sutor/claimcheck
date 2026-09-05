@@ -1,0 +1,8 @@
+{
+  "shape": 9,
+  "name": "a qualifier that differs in wording and not in scope",
+  "must_fire": false,
+  "merged_under_audit": "ideal.md",
+  "title_audience": "the support desk, which is also the service desk",
+  "why": "Two names for one team. A predicate that compares qualifier strings fires here, and firing here is the tell that it is a string check wearing a semantic label. Section 4 rejects that predicate in advance; this fixture is how the rejection is enforced."
+}

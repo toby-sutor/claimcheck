@@ -1,0 +1,311 @@
+{
+  "schema_version": 4,
+  "fixture": "conflict_surfaced",
+  "held_out": false,
+  "kind": "guard",
+  "description": "The same disagreement as the contradiction fixture, but the merge surfaces both values and refuses to choose. Nothing is dropped or overwritten.",
+  "plants": [],
+  "note": "This fixture tests the prompt's precision as much as the model's. merged.md states both connect timeout values under attribution, so a verify prompt that says only 'a different value for the same attribute is CONTRADICTED' makes the fixture unpassable by a model following it faithfully. prompts/verify.md has to state that attributed content still counts as stated, and that several attributed values for one attribute leave each of them SUPPORTED with the disagreement recorded as a conflict. If this fixture fails, read the prompt before blaming the model. Exit code repaired 2026-09-03 (DECISIONS 223). This fixture declared expected_exit_code 1 in both modes while every one of its eleven probes expects SUPPORTED, files no finding, and plants nothing. No correct run can produce exit 1 here: the only way to reach it is to invent a finding, which is what the arm credited with matching it did. Both codes are now 0, which is what the probes have always said. expected_conflicts stays as the record of the conflict this document surfaces, but it no longer drives the expectation - the mechanism that would read it is M5's and was never built (DECISIONS 187), and deriving an answer key from an unbuilt mechanism is how this went unnoticed.",
+  "merged": "merged.md",
+  "prompts": {
+    "source_to_merged": "prompts/verify.md",
+    "merged_to_sources": "prompts/verify_reverse.md"
+  },
+  "claim_count_band": {
+    "source_a.md": [
+      5,
+      10
+    ],
+    "source_b.md": [
+      5,
+      10
+    ],
+    "merged.md": [
+      8,
+      16
+    ]
+  },
+  "probes": [
+    {
+      "probe_id": "a-connect-timeout",
+      "direction": "source_to_merged",
+      "document": "source_a.md",
+      "line": 8,
+      "text": "The default connect timeout is 30 seconds.",
+      "must_extract": true,
+      "anchor": {
+        "all_of": [
+          "connect timeout",
+          "30 seconds"
+        ]
+      },
+      "match": {
+        "all_of": [
+          "connect timeout",
+          "30 seconds"
+        ]
+      },
+      "expected_verdict": "SUPPORTED",
+      "also_acceptable": [],
+      "expected_finding": "none",
+      "expected_evidence_contains": [
+        "30 seconds"
+      ],
+      "note": "The judgement call in this fixture. merged.md carries the value with attribution rather than asserting it flatly. The claim is present, checkable and unaltered, so coverage is satisfied and the verdict is SUPPORTED. Deliberately not softened with also_acceptable: if MISSING were acceptable here, the fixture would stop guarding the behaviour it exists to reward."
+    },
+    {
+      "probe_id": "b-connect-timeout",
+      "direction": "source_to_merged",
+      "document": "source_b.md",
+      "line": 8,
+      "text": "The default connect timeout is 60 seconds.",
+      "must_extract": true,
+      "anchor": {
+        "all_of": [
+          "connect timeout",
+          "60 seconds"
+        ]
+      },
+      "match": {
+        "all_of": [
+          "connect timeout",
+          "60 seconds"
+        ]
+      },
+      "expected_verdict": "SUPPORTED",
+      "also_acceptable": [],
+      "expected_finding": "none",
+      "expected_evidence_contains": [
+        "60 seconds"
+      ],
+      "note": "Both sides SUPPORTED is the signature that distinguishes this fixture from contradiction, where one side is CONTRADICTED. A tool that reflexively contradicts one side of any disagreement fails here and passes there."
+    },
+    {
+      "probe_id": "a-listen-port",
+      "direction": "source_to_merged",
+      "document": "source_a.md",
+      "line": 7,
+      "text": "The relay listens on port 8443 by default.",
+      "must_extract": true,
+      "anchor": {
+        "all_of": [
+          "listens on port",
+          "8443"
+        ]
+      },
+      "match": {
+        "all_of": [
+          "listens on port",
+          "8443"
+        ]
+      },
+      "expected_verdict": "SUPPORTED",
+      "also_acceptable": [],
+      "expected_finding": "none"
+    },
+    {
+      "probe_id": "a-read-timeout",
+      "direction": "source_to_merged",
+      "document": "source_a.md",
+      "line": 9,
+      "text": "The default read timeout is 120 seconds.",
+      "must_extract": true,
+      "anchor": {
+        "all_of": [
+          "read timeout",
+          "120 seconds"
+        ]
+      },
+      "match": {
+        "all_of": [
+          "read timeout",
+          "120 seconds"
+        ]
+      },
+      "expected_verdict": "SUPPORTED",
+      "also_acceptable": [],
+      "expected_finding": "none"
+    },
+    {
+      "probe_id": "a-max-connections",
+      "direction": "source_to_merged",
+      "document": "source_a.md",
+      "line": 13,
+      "text": "The relay accepts at most 512 concurrent connections.",
+      "must_extract": true,
+      "anchor": {
+        "all_of": [
+          "512 concurrent connections"
+        ]
+      },
+      "match": {
+        "all_of": [
+          "512 concurrent connections"
+        ]
+      },
+      "expected_verdict": "SUPPORTED",
+      "also_acceptable": [],
+      "expected_finding": "none"
+    },
+    {
+      "probe_id": "a-tls-version",
+      "direction": "source_to_merged",
+      "document": "source_a.md",
+      "line": 18,
+      "text": "The minimum accepted TLS version is TLS 1.2.",
+      "must_extract": true,
+      "anchor": {
+        "all_of": [
+          "minimum accepted TLS version",
+          "TLS 1.2"
+        ]
+      },
+      "match": {
+        "all_of": [
+          "minimum accepted TLS version",
+          "TLS 1.2"
+        ]
+      },
+      "expected_verdict": "SUPPORTED",
+      "also_acceptable": [],
+      "expected_finding": "none"
+    },
+    {
+      "probe_id": "b-log-format",
+      "direction": "source_to_merged",
+      "document": "source_b.md",
+      "line": 13,
+      "text": "Access logs are written in JSON Lines format.",
+      "must_extract": true,
+      "anchor": {
+        "all_of": [
+          "access logs",
+          "JSON Lines"
+        ]
+      },
+      "match": {
+        "all_of": [
+          "access logs",
+          "JSON Lines"
+        ]
+      },
+      "expected_verdict": "SUPPORTED",
+      "also_acceptable": [],
+      "expected_finding": "none"
+    },
+    {
+      "probe_id": "b-health-path",
+      "direction": "source_to_merged",
+      "document": "source_b.md",
+      "line": 14,
+      "text": "The health check endpoint is /-/healthy.",
+      "must_extract": true,
+      "anchor": {
+        "all_of": [
+          "health check endpoint",
+          "/-/healthy"
+        ]
+      },
+      "match": {
+        "all_of": [
+          "health check endpoint",
+          "/-/healthy"
+        ]
+      },
+      "expected_verdict": "SUPPORTED",
+      "also_acceptable": [],
+      "expected_finding": "none",
+      "note": "Final line of source_b.md, so this probe also exercises the upper bound of the anchoring window."
+    },
+    {
+      "probe_id": "merged-attributed-timeout-a",
+      "direction": "merged_to_sources",
+      "document": "merged.md",
+      "line": 11,
+      "text": "According to the Operator Guide, the default connect timeout is 30 seconds.",
+      "must_extract": true,
+      "anchor": {
+        "all_of": [
+          "According to the Operator Guide",
+          "30 seconds"
+        ]
+      },
+      "match": {
+        "all_of": [
+          "According to the Operator Guide",
+          "30 seconds"
+        ]
+      },
+      "expected_verdict": "SUPPORTED",
+      "also_acceptable": [],
+      "expected_finding": "none",
+      "expected_evidence_contains": [
+        "30 seconds"
+      ],
+      "note": "The attributed sentence, in reverse. source_a.md is titled 'Vandrell Relay — Operator Guide' and does state 30 seconds, so both the attribution and the attributed content are grounded in the sources. Nothing here is invented. A reverse pass that treats reported speech as unverifiable flags this and fails the guard. Holds whether decompose keeps the attribution or strips it: the bare claim matches source_a as well."
+    },
+    {
+      "probe_id": "merged-attributed-timeout-b",
+      "direction": "merged_to_sources",
+      "document": "merged.md",
+      "line": 12,
+      "text": "According to the Deployment Notes, the default connect timeout is 60 seconds.",
+      "must_extract": true,
+      "anchor": {
+        "all_of": [
+          "According to the Deployment Notes",
+          "60 seconds"
+        ]
+      },
+      "match": {
+        "all_of": [
+          "According to the Deployment Notes",
+          "60 seconds"
+        ]
+      },
+      "expected_verdict": "SUPPORTED",
+      "also_acceptable": [],
+      "expected_finding": "none",
+      "note": "The second attributed value, one line below the first. A reverse pass that resolves the disagreement instead of reporting both sides will contradict one of these two."
+    },
+    {
+      "probe_id": "merged-max-connections",
+      "direction": "merged_to_sources",
+      "document": "merged.md",
+      "line": 17,
+      "text": "The relay accepts at most 512 concurrent connections.",
+      "must_extract": true,
+      "anchor": {
+        "all_of": [
+          "512 concurrent connections"
+        ]
+      },
+      "match": {
+        "all_of": [
+          "512 concurrent connections"
+        ]
+      },
+      "expected_verdict": "SUPPORTED",
+      "also_acceptable": [],
+      "expected_finding": "none",
+      "note": "Plain unattributed control, outside the blockquote. If this fails alongside the two above, the problem is the reverse pass generally rather than attribution specifically."
+    }
+  ],
+  "must_not_extract": [],
+  "expected_conflicts": [
+    {
+      "conflict_id": "connect-timeout",
+      "attribute": "default_connect_timeout",
+      "probes": [
+        "a-connect-timeout",
+        "b-connect-timeout"
+      ],
+      "reason": "The sources assign incompatible values to the same attribute: 30 seconds against 60 seconds. The merge surfaced the disagreement rather than resolving it, but the decision is still a human's to make.",
+      "human_decision_required": true
+    }
+  ],
+  "expected_exit_code": {
+    "strict": 0,
+    "lenient": 0
+  }
+}

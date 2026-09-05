@@ -1,0 +1,442 @@
+{
+  "schema_version": 4,
+  "fixture": "disjoint_sources",
+  "held_out": false,
+  "kind": "guard",
+  "description": "Two entirely unrelated documents. No shared attribute, no overlapping fact, nothing to reconcile. The correct merge preserves both whole. Guards against invented cross-document relationships and against spurious conflict detection driven by superficially similar attributes (work, seasons, transport, spring/winter).",
+  "plants": [],
+  "merged": "merged.md",
+  "prompts": {
+    "source_to_merged": "prompts/verify.md",
+    "merged_to_sources": "prompts/verify_reverse.md"
+  },
+  "claim_count_band": {
+    "source_a.md": [
+      16,
+      32
+    ],
+    "source_b.md": [
+      20,
+      38
+    ],
+    "merged.md": [
+      36,
+      70
+    ]
+  },
+  "probes": [
+    {
+      "probe_id": "a-visit-hours",
+      "direction": "source_to_merged",
+      "document": "source_a.md",
+      "line": 7,
+      "text": "The princess visited the rosegarden every morning from 8 am till 9 am.",
+      "must_extract": true,
+      "anchor": {
+        "all_of": [
+          "8 am",
+          "9 am"
+        ]
+      },
+      "match": {
+        "all_of": [
+          "8 am",
+          "9 am"
+        ]
+      },
+      "expected_verdict": "SUPPORTED",
+      "also_acceptable": [],
+      "expected_finding": "none",
+      "expected_evidence_contains": [
+        "from 8 am till 9 am"
+      ]
+    },
+    {
+      "probe_id": "a-work-hours-verbatim",
+      "direction": "source_to_merged",
+      "document": "source_a.md",
+      "line": 8,
+      "text": "The princess worked in the rosegarden from 02:00 till 15:30 o'clock.",
+      "must_extract": true,
+      "anchor": {
+        "all_of": [
+          "02:00",
+          "15:30"
+        ]
+      },
+      "match": {
+        "all_of": [
+          "02:00",
+          "15:30"
+        ]
+      },
+      "expected_verdict": "SUPPORTED",
+      "also_acceptable": [],
+      "expected_finding": "none",
+      "expected_evidence_contains": [
+        "From 02:00 till 15:30"
+      ],
+      "note": "Fidelity probe. The source time is odd and a merge model is likely to normalise it to 2 pm or reorder it. Any such rewrite is a silent factual alteration; the required evidence span forces the verbatim value to survive."
+    },
+    {
+      "probe_id": "a-winter-dormant",
+      "direction": "source_to_merged",
+      "document": "source_a.md",
+      "line": 12,
+      "text": "The rosegarden lost all its life in winter.",
+      "must_extract": true,
+      "anchor": {
+        "all_of": [
+          "winter",
+          "rosegarden"
+        ]
+      },
+      "match": {
+        "all_of": [
+          "winter",
+          "rosegarden"
+        ]
+      },
+      "expected_verdict": "SUPPORTED",
+      "also_acceptable": [],
+      "expected_finding": "none",
+      "note": "Collides semantically with source_b's winter claims. Individually SUPPORTED; a cross-document matcher would pair this with the old lady surviving winter and invent a conflict."
+    },
+    {
+      "probe_id": "a-ownership",
+      "direction": "source_to_merged",
+      "document": "source_a.md",
+      "line": 17,
+      "text": "The rose garden was the private property of the royal family.",
+      "must_extract": true,
+      "anchor": {
+        "all_of": [
+          "private property",
+          "royal family"
+        ]
+      },
+      "match": {
+        "all_of": [
+          "private property",
+          "royal family"
+        ]
+      },
+      "expected_verdict": "SUPPORTED",
+      "also_acceptable": [],
+      "expected_finding": "none"
+    },
+    {
+      "probe_id": "a-public-dates",
+      "direction": "source_to_merged",
+      "document": "source_a.md",
+      "line": 17,
+      "text": "The garden was accessible to the public every March 1st to March 31st.",
+      "must_extract": true,
+      "anchor": {
+        "all_of": [
+          "March 1st",
+          "March 31st"
+        ]
+      },
+      "match": {
+        "all_of": [
+          "March 1st",
+          "March 31st"
+        ]
+      },
+      "expected_verdict": "SUPPORTED",
+      "also_acceptable": [],
+      "expected_finding": "none",
+      "expected_evidence_contains": [
+        "March 1st to March 31st"
+      ],
+      "note": "Collides with source_b's October-to-April impassability. Different subject, different place, no conflict."
+    },
+    {
+      "probe_id": "a-postcard-tie",
+      "direction": "source_to_merged",
+      "document": "source_a.md",
+      "line": 24,
+      "text": "People and postcards were usually transported in the same carriage.",
+      "must_extract": true,
+      "anchor": {
+        "all_of": [
+          "same carriage"
+        ]
+      },
+      "match": {
+        "all_of": [
+          "same carriage"
+        ]
+      },
+      "expected_verdict": "SUPPORTED",
+      "also_acceptable": [],
+      "expected_finding": "none",
+      "note": "Transport collision with source_b's travelling herb traders."
+    },
+    {
+      "probe_id": "b-not-traversable",
+      "direction": "source_to_merged",
+      "document": "source_b.md",
+      "line": 7,
+      "text": "The forest was not traversable between October and April.",
+      "must_extract": true,
+      "anchor": {
+        "all_of": [
+          "not traversable",
+          "October",
+          "April"
+        ]
+      },
+      "match": {
+        "all_of": [
+          "not traversable",
+          "October",
+          "April"
+        ]
+      },
+      "expected_verdict": "SUPPORTED",
+      "also_acceptable": [],
+      "expected_finding": "none",
+      "expected_evidence_contains": [
+        "between October and April"
+      ]
+    },
+    {
+      "probe_id": "b-lady-year-round",
+      "direction": "source_to_merged",
+      "document": "source_b.md",
+      "line": 8,
+      "text": "The old lady lived in the forest the entire year.",
+      "must_extract": true,
+      "anchor": {
+        "all_of": [
+          "entire year",
+          "forest"
+        ]
+      },
+      "match": {
+        "all_of": [
+          "entire year",
+          "forest"
+        ]
+      },
+      "expected_verdict": "SUPPORTED",
+      "also_acceptable": [],
+      "expected_finding": "none",
+      "note": "Within source_b this sits alongside the forest being impassable October to April. Both are true as written; the tool must not treat an in-source tension as a cross-source conflict."
+    },
+    {
+      "probe_id": "b-herbs-not-magic",
+      "direction": "source_to_merged",
+      "document": "source_b.md",
+      "line": 12,
+      "text": "The old lady collected wild herbs rather than practising forbidden magic.",
+      "must_extract": true,
+      "anchor": {
+        "all_of": [
+          "wild herbs"
+        ]
+      },
+      "match": {
+        "all_of": [
+          "wild herbs"
+        ]
+      },
+      "expected_verdict": "SUPPORTED",
+      "also_acceptable": [],
+      "expected_finding": "none",
+      "note": "This is source_b's 'Work' section. Collides with the princess working in the garden."
+    },
+    {
+      "probe_id": "b-herbs-to-cities",
+      "direction": "source_to_merged",
+      "document": "source_b.md",
+      "line": 13,
+      "text": "Wandering travelers transported and sold the herbs into the cities.",
+      "must_extract": true,
+      "anchor": {
+        "all_of": [
+          "travelers",
+          "cities"
+        ]
+      },
+      "match": {
+        "all_of": [
+          "travelers",
+          "cities"
+        ]
+      },
+      "expected_verdict": "SUPPORTED",
+      "also_acceptable": [],
+      "expected_finding": "none"
+    },
+    {
+      "probe_id": "b-medicine-village",
+      "direction": "source_to_merged",
+      "document": "source_b.md",
+      "line": 24,
+      "text": "She gave the man enough herb medicine for the entire village.",
+      "must_extract": true,
+      "anchor": {
+        "all_of": [
+          "medicine",
+          "entire village"
+        ]
+      },
+      "match": {
+        "all_of": [
+          "medicine",
+          "entire village"
+        ]
+      },
+      "expected_verdict": "SUPPORTED",
+      "also_acceptable": [],
+      "expected_finding": "none"
+    },
+    {
+      "probe_id": "b-cheese-autumn",
+      "direction": "source_to_merged",
+      "document": "source_b.md",
+      "line": 26,
+      "text": "The villagers sent the old lady a basket of cheese and dried meat every autumn.",
+      "must_extract": true,
+      "anchor": {
+        "all_of": [
+          "cheese",
+          "autumn"
+        ]
+      },
+      "match": {
+        "all_of": [
+          "cheese",
+          "autumn"
+        ]
+      },
+      "expected_verdict": "SUPPORTED",
+      "also_acceptable": [],
+      "expected_finding": "none"
+    },
+    {
+      "probe_id": "m-visit-hours-reverse",
+      "direction": "merged_to_sources",
+      "document": "merged.md",
+      "line": 7,
+      "text": "The princess visited the rosegarden every morning from 8 am till 9 am.",
+      "must_extract": true,
+      "anchor": {
+        "all_of": [
+          "8 am",
+          "9 am"
+        ]
+      },
+      "match": {
+        "all_of": [
+          "8 am",
+          "9 am"
+        ]
+      },
+      "expected_verdict": "SUPPORTED",
+      "also_acceptable": [],
+      "expected_finding": "none",
+      "expected_evidence_contains": [
+        "from 8 am till 9 am"
+      ],
+      "expected_evidence_source": ["source_a.md"]
+    },
+    {
+      "probe_id": "m-forest-season-reverse",
+      "direction": "merged_to_sources",
+      "document": "merged.md",
+      "line": 32,
+      "text": "The forest was not traversable between October and April.",
+      "must_extract": true,
+      "anchor": {
+        "all_of": [
+          "not traversable",
+          "October",
+          "April"
+        ]
+      },
+      "match": {
+        "all_of": [
+          "not traversable",
+          "October",
+          "April"
+        ]
+      },
+      "expected_verdict": "SUPPORTED",
+      "also_acceptable": [],
+      "expected_finding": "none",
+      "expected_evidence_source": ["source_b.md"],
+      "note": "Reverse-direction guard. A reverse pass that concatenates both sources must not flag a claim as unsupported merely because it is absent from source_a."
+    },
+    {
+      "probe_id": "m-public-dates-reverse",
+      "direction": "merged_to_sources",
+      "document": "merged.md",
+      "line": 17,
+      "text": "The garden was accessible to the public every March 1st to March 31st.",
+      "must_extract": true,
+      "anchor": {
+        "all_of": [
+          "March 1st",
+          "March 31st"
+        ]
+      },
+      "match": {
+        "all_of": [
+          "March 1st",
+          "March 31st"
+        ]
+      },
+      "expected_verdict": "SUPPORTED",
+      "also_acceptable": [],
+      "expected_finding": "none",
+      "expected_evidence_source": ["source_a.md"]
+    },
+    {
+      "probe_id": "m-herbs-reverse",
+      "direction": "merged_to_sources",
+      "document": "merged.md",
+      "line": 37,
+      "text": "The old lady collected wild herbs.",
+      "must_extract": true,
+      "anchor": {
+        "all_of": [
+          "wild herbs"
+        ]
+      },
+      "match": {
+        "all_of": [
+          "wild herbs"
+        ]
+      },
+      "expected_verdict": "SUPPORTED",
+      "also_acceptable": [],
+      "expected_finding": "none",
+      "expected_evidence_source": ["source_b.md"]
+    }
+  ],
+  "must_not_extract": [
+    {
+      "assertion_id": "no-princess-to-forest",
+      "document": "merged.md",
+      "basis": "absent",
+      "pattern": "(?i)\\bprincess\\b[^.]*\\b(old lady|forest|witch|herbs?|villagers?|medicine)\\b",
+      "reason": "the two sources share no content; a claim linking the princess to the forest story is invented, not merged"
+    },
+    {
+      "assertion_id": "no-forest-to-rosegarden",
+      "document": "merged.md",
+      "basis": "absent",
+      "pattern": "(?i)\\b(old lady|forest|witch|villagers?|herbs?)\\b[^.]*\\b(princess|rosegarden|rose garden|castel|castle|postcards?)\\b",
+      "reason": "the same bridge in the other direction; decompose must not invent a connection the merge does not state"
+    }
+  ],
+  "expected_conflicts": [],
+  "expected_exit_code": {
+    "strict": 0,
+    "lenient": 0
+  }
+}

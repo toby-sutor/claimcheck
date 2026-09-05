@@ -1,0 +1,175 @@
+{
+  "schema_version": 4,
+  "fixture": "numeric_drift",
+  "held_out": false,
+  "kind": "defect",
+  "description": "One source gives a rounded figure and the other an exact one for the same attribute; the merge silently adopts the exact figure.",
+  "plants": [
+    "source_a.md line 7 says approximately 500 concurrent connections; source_b.md line 7 says 512; merged.md line 7 says 512 and does not record that the sources differ"
+  ],
+  "note": "The exit code the probes imply, not the exit code the conflict implies. a-max-connections sanctions SUPPORTED, SUPPORTED files nothing, and a run in which it is the only planted probe therefore exits 0 on a reading this fixture itself accepts. So strict is 1 and lenient is 0, and they differ - which is the whole signal tests/run_detect.py reads to call this fixture unmeasured on an arm rather than failed. Repaired 2026-09-03: both were declared 1, so an arm taking the sanctioned reading was disqualified for correct behaviour (DECISIONS 223). expected_conflicts is unchanged and still owned by M5; it does not drive the expectation.",
+  "merged": "merged.md",
+  "prompts": {
+    "source_to_merged": "prompts/verify.md",
+    "merged_to_sources": "prompts/verify_reverse.md"
+  },
+  "claim_count_band": {
+    "source_a.md": [
+      4,
+      9
+    ],
+    "source_b.md": [
+      4,
+      9
+    ],
+    "merged.md": [
+      4,
+      9
+    ]
+  },
+  "probes": [
+    {
+      "probe_id": "a-max-connections",
+      "direction": "source_to_merged",
+      "document": "source_a.md",
+      "line": 7,
+      "text": "The relay handles approximately 500 concurrent connections.",
+      "must_extract": true,
+      "anchor": {
+        "all_of": [
+          "approximately 500",
+          "concurrent connections"
+        ]
+      },
+      "match": {
+        "all_of": [
+          "approximately 500",
+          "concurrent connections"
+        ]
+      },
+      "expected_verdict": "CONTRADICTED",
+      "also_acceptable": [
+        "SUPPORTED",
+        "MISSING"
+      ],
+      "expected_finding": "contradicted",
+      "expected_evidence_contains": [
+        "512"
+      ],
+      "note": "The only probe in the fixture set with a soft verdict, and the reason also_acceptable exists. 512 is a plausible reading of \"approximately 500\", so SUPPORTED is defensible. It is also a different number for the same attribute, so CONTRADICTED is defensible. And a vague figure that the merge neither states nor directly denies can be read as absent, so MISSING is defensible as well. Widened from CONTRADICTED plus SUPPORTED to all three on 2026-08-07, after a one-sample sweep of six models on one prompt version split 4 CONTRADICTED / 1 SUPPORTED / 1 MISSING on it: that is what a genuinely soft probe looks like, not a model failing. The hard assertion is the conflict below, owned by M5 and unaffected by which label comes back: whichever reading the model takes, the tool must not silently settle the question. See docs/M3-addendum.md for the per-model figures."
+    },
+    {
+      "probe_id": "b-max-connections",
+      "direction": "source_to_merged",
+      "document": "source_b.md",
+      "line": 7,
+      "text": "The connection limit is 512 concurrent connections.",
+      "must_extract": true,
+      "anchor": {
+        "all_of": [
+          "connection limit",
+          "512"
+        ]
+      },
+      "match": {
+        "all_of": [
+          "connection limit",
+          "512"
+        ]
+      },
+      "expected_verdict": "SUPPORTED",
+      "also_acceptable": [],
+      "expected_finding": "none",
+      "expected_evidence_contains": [
+        "512 concurrent connections"
+      ]
+    },
+    {
+      "probe_id": "a-retry-limit",
+      "direction": "source_to_merged",
+      "document": "source_a.md",
+      "line": 8,
+      "text": "Each request is retried at most 3 times.",
+      "must_extract": true,
+      "anchor": {
+        "all_of": [
+          "retried at most 3 times"
+        ]
+      },
+      "match": {
+        "all_of": [
+          "retried at most 3 times"
+        ]
+      },
+      "expected_verdict": "SUPPORTED",
+      "also_acceptable": [],
+      "expected_finding": "none",
+      "note": "Immediately below the drifting number and identical in both sources. Guards against a tool that flags its neighbours once a nearby value is in doubt."
+    },
+    {
+      "probe_id": "b-listen-port",
+      "direction": "source_to_merged",
+      "document": "source_b.md",
+      "line": 12,
+      "text": "The relay listens on port 8443 by default.",
+      "must_extract": true,
+      "anchor": {
+        "all_of": [
+          "listens on port",
+          "8443"
+        ]
+      },
+      "match": {
+        "all_of": [
+          "listens on port",
+          "8443"
+        ]
+      },
+      "expected_verdict": "SUPPORTED",
+      "also_acceptable": [],
+      "expected_finding": "none"
+    },
+    {
+      "probe_id": "a-connect-timeout",
+      "direction": "source_to_merged",
+      "document": "source_a.md",
+      "line": 13,
+      "text": "The default connect timeout is 30 seconds.",
+      "must_extract": true,
+      "anchor": {
+        "all_of": [
+          "connect timeout",
+          "30 seconds"
+        ]
+      },
+      "match": {
+        "all_of": [
+          "connect timeout",
+          "30 seconds"
+        ]
+      },
+      "expected_verdict": "SUPPORTED",
+      "also_acceptable": [],
+      "expected_finding": "none",
+      "note": "Final line of source_a.md, so this probe also exercises the upper bound of the anchoring window."
+    }
+  ],
+  "must_not_extract": [],
+  "expected_conflicts": [
+    {
+      "conflict_id": "max-concurrent-connections",
+      "attribute": "max_concurrent_connections",
+      "probes": [
+        "a-max-connections",
+        "b-max-connections"
+      ],
+      "reason": "The sources give different figures for the same attribute: approximately 500 against 512. Whether they are compatible is a human's call, not the tool's.",
+      "human_decision_required": true,
+      "note": "Owned by M5. Under lenient scoring both probes may legitimately come back SUPPORTED, and this conflict is then reachable only through value comparison, not verdict diffing. See SCHEMA.md."
+    }
+  ],
+  "expected_exit_code": {
+    "strict": 1,
+    "lenient": 0
+  }
+}

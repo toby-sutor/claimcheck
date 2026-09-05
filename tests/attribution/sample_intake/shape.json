@@ -1,0 +1,13 @@
+{
+  "shape": 1,
+  "name": "audience inversion",
+  "defect": "self_contradiction",
+  "audience_model_required": false,
+  "must_fire": true,
+  "merged_under_audit": "inverted.md",
+  "title_audience": "the courier",
+  "giveaway": "Break the tamper seal at the bench and record the seal number in LIMS.",
+  "why": "The courier's own document says 'Do not open the box at any point', and a courier has no LIMS account. inverted.md keeps both sentences and puts them under one title, so the document instructs its stated reader to do what it elsewhere forbids.",
+  "defect_why": "The merged document forbids what it instructs. 'Do not open the box at any point' and 'Break the tamper seal at the bench' are both in it, under one title, addressed to one reader. A checker needs no model of who a courier is or what they may do - it needs only to notice that two instructions in the same document cannot both be followed.",
+  "inverted_differs_from_ideal_by": "heading qualifiers only; section order is ideal.md's. Exactly one variable separates the two files, so a predicate cannot score on order."
+}

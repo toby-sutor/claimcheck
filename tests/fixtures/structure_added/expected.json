@@ -1,0 +1,264 @@
+{
+  "schema_version": 4,
+  "fixture": "structure_added",
+  "kind": "guard",
+  "held_out": true,
+  "description": "A correctly merged document that adds a provenance note, a table of contents and four section headings without altering any fact. Must be clean in both directions. The claim_count_band on merged.md is the real assertion: a count above the band means decompose extracted structure as fact. must_not_extract catches the provenance line and any paraphrase of it, since no legitimate claim from merged.md mentions a source filename.",
+  "plants": [],
+  "merged": "merged.md",
+  "prompts": {
+    "source_to_merged": "prompts/verify.md",
+    "merged_to_sources": "prompts/verify_reverse.md"
+  },
+  "claim_count_band": {
+    "source_a.md": [
+      2,
+      4
+    ],
+    "source_b.md": [
+      3,
+      5
+    ],
+    "merged.md": [
+      4,
+      7
+    ]
+  },
+  "probes": [
+    {
+      "probe_id": "a-listen-port",
+      "direction": "source_to_merged",
+      "document": "source_a.md",
+      "line": 3,
+      "text": "The relay listens on port 8443.",
+      "must_extract": true,
+      "anchor": {
+        "all_of": [
+          "listens on port 8443"
+        ]
+      },
+      "match": {
+        "all_of": [
+          "listens on port 8443"
+        ]
+      },
+      "expected_verdict": "SUPPORTED",
+      "also_acceptable": [],
+      "expected_finding": "none",
+      "expected_evidence_contains": [
+        "8443"
+      ]
+    },
+    {
+      "probe_id": "a-read-timeout",
+      "direction": "source_to_merged",
+      "document": "source_a.md",
+      "line": 4,
+      "text": "The read timeout is 30 seconds.",
+      "must_extract": true,
+      "anchor": {
+        "all_of": [
+          "read timeout is 30 seconds"
+        ]
+      },
+      "match": {
+        "all_of": [
+          "read timeout is 30 seconds"
+        ]
+      },
+      "expected_verdict": "SUPPORTED",
+      "also_acceptable": [],
+      "expected_finding": "none",
+      "expected_evidence_contains": [
+        "30 seconds"
+      ]
+    },
+    {
+      "probe_id": "b-health-path",
+      "direction": "source_to_merged",
+      "document": "source_b.md",
+      "line": 4,
+      "text": "The health check path is /healthz.",
+      "must_extract": true,
+      "anchor": {
+        "all_of": [
+          "/healthz"
+        ]
+      },
+      "match": {
+        "all_of": [
+          "health check path",
+          "/healthz"
+        ]
+      },
+      "expected_verdict": "SUPPORTED",
+      "also_acceptable": [],
+      "expected_finding": "none",
+      "expected_evidence_contains": [
+        "/healthz"
+      ]
+    },
+    {
+      "probe_id": "b-tls-min",
+      "direction": "source_to_merged",
+      "document": "source_b.md",
+      "line": 5,
+      "text": "The minimum TLS version is 1.2.",
+      "must_extract": true,
+      "anchor": {
+        "all_of": [
+          "minimum TLS version is 1.2"
+        ]
+      },
+      "match": {
+        "all_of": [
+          "minimum TLS version is 1.2"
+        ]
+      },
+      "expected_verdict": "SUPPORTED",
+      "also_acceptable": [],
+      "expected_finding": "none",
+      "expected_evidence_contains": [
+        "1.2"
+      ]
+    },
+    {
+      "probe_id": "m-listen-port",
+      "direction": "merged_to_sources",
+      "document": "merged.md",
+      "line": 15,
+      "text": "The relay listens on port 8443.",
+      "must_extract": true,
+      "anchor": {
+        "all_of": [
+          "listens on port 8443"
+        ]
+      },
+      "match": {
+        "all_of": [
+          "listens on port 8443"
+        ]
+      },
+      "expected_verdict": "SUPPORTED",
+      "also_acceptable": [],
+      "expected_finding": "none",
+      "expected_evidence_contains": [
+        "8443"
+      ],
+      "expected_evidence_source": [
+        "source_a.md",
+        "source_b.md"
+      ]
+    },
+    {
+      "probe_id": "m-read-timeout",
+      "direction": "merged_to_sources",
+      "document": "merged.md",
+      "line": 19,
+      "text": "The read timeout is 30 seconds.",
+      "must_extract": true,
+      "anchor": {
+        "all_of": [
+          "read timeout is 30 seconds"
+        ]
+      },
+      "match": {
+        "all_of": [
+          "read timeout is 30 seconds"
+        ]
+      },
+      "expected_verdict": "SUPPORTED",
+      "also_acceptable": [],
+      "expected_finding": "none",
+      "expected_evidence_contains": [
+        "30 seconds"
+      ],
+      "expected_evidence_source": [
+        "source_a.md"
+      ]
+    },
+    {
+      "probe_id": "m-health-path",
+      "direction": "merged_to_sources",
+      "document": "merged.md",
+      "line": 23,
+      "text": "The health check path is /healthz.",
+      "must_extract": true,
+      "anchor": {
+        "all_of": [
+          "/healthz"
+        ]
+      },
+      "match": {
+        "all_of": [
+          "health check path",
+          "/healthz"
+        ]
+      },
+      "expected_verdict": "SUPPORTED",
+      "also_acceptable": [],
+      "expected_finding": "none",
+      "expected_evidence_contains": [
+        "/healthz"
+      ],
+      "expected_evidence_source": [
+        "source_b.md"
+      ]
+    },
+    {
+      "probe_id": "m-tls-min",
+      "direction": "merged_to_sources",
+      "document": "merged.md",
+      "line": 27,
+      "text": "The minimum TLS version is 1.2.",
+      "must_extract": true,
+      "anchor": {
+        "all_of": [
+          "minimum TLS version is 1.2"
+        ]
+      },
+      "match": {
+        "all_of": [
+          "minimum TLS version is 1.2"
+        ]
+      },
+      "expected_verdict": "SUPPORTED",
+      "also_acceptable": [],
+      "expected_finding": "none",
+      "expected_evidence_contains": [
+        "1.2"
+      ],
+      "expected_evidence_source": [
+        "source_b.md"
+      ]
+    }
+  ],
+  "must_not_extract": [
+    {
+      "assertion_id": "no-merge-provenance",
+      "document": "merged.md",
+      "basis": "not_a_claim",
+      "pattern": "(?i)\\bmerged from\\b|\\btwo source documents were combined\\b|\\bno values were altered\\b",
+      "reason": "the provenance note is a statement about how the documents were combined, not about the relay; decompose is told to skip exactly this"
+    },
+    {
+      "assertion_id": "no-source-filenames",
+      "document": "merged.md",
+      "basis": "not_a_claim",
+      "pattern": "(?i)source_[ab]\\.md",
+      "reason": "no legitimate claim about the relay names a source filename, so a claim that does came from the provenance line"
+    },
+    {
+      "assertion_id": "no-merge-date",
+      "document": "merged.md",
+      "basis": "not_a_claim",
+      "pattern": "\\b2026-08-07\\b",
+      "reason": "the merge date is a fact about the merge, not about the relay"
+    }
+  ],
+  "expected_conflicts": [],
+  "expected_exit_code": {
+    "strict": 0,
+    "lenient": 0
+  }
+}

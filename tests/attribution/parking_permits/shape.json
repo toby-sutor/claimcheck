@@ -1,0 +1,8 @@
+{
+  "shape": 6,
+  "name": "a legitimate two-audience merge",
+  "must_fire": false,
+  "merged_under_audit": "ideal.md",
+  "title_audience": "nobody in particular",
+  "why": "Both audiences are present and every audience-specific heading names its reader. The title is the neutral one of the two. A reader can tell which half is theirs, which is section 4's whole criterion. This is the control the predicate is most likely to fail."
+}

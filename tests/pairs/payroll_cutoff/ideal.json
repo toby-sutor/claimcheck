@@ -1,0 +1,40 @@
+{
+  "dispositions": [
+    {
+      "segment": "b1",
+      "disposition": "superseded",
+      "replacement": "Payroll Submission Deadlines (2026 Schedule)",
+      "reason": "The 2026 schedule replaces the 2025 one, so its title is the live one."
+    },
+    {
+      "segment": "b5",
+      "disposition": "superseded",
+      "replacement": "The 2025 schedule set the cut-off at 15:00 on the 20th of the month, and moved it to the following Monday when the 20th fell on a weekend.",
+      "reason": "The 2025 time is superseded by 12:00 on the 18th and kept for reference."
+    },
+    {
+      "segment": "b6",
+      "disposition": "superseded",
+      "replacement": "Submissions that arrive after it are held for the following month's run.",
+      "reason": "Same rule, stated once under the 2026 cut-off it now applies to."
+    },
+    {
+      "segment": "b7",
+      "disposition": "superseded",
+      "replacement": "The 2025 schedule set the cut-off at 15:00 on the 20th of the month, and moved it to the following Monday when the 20th fell on a weekend.",
+      "reason": "The weekend rule moved with the date; the 2025 wording is kept as history."
+    },
+    {
+      "segment": "b9",
+      "disposition": "superseded",
+      "replacement": "The file must list every hourly worker with hours and the cost centre the hours are charged to.",
+      "reason": "Split across two sentences under What to submit; no wording of B is lost."
+    },
+    {
+      "segment": "b12",
+      "disposition": "superseded",
+      "replacement": "After the cut-off, corrections go to the payroll inbox as a written request and are applied to the following month.",
+      "reason": "A's fuller sentence says the same and adds when the correction lands."
+    }
+  ]
+}

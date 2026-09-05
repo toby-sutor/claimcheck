@@ -1,0 +1,10 @@
+{
+  "dispositions": [
+    {
+      "segment": "b1",
+      "disposition": "superseded",
+      "replacement": "Ticket Triage - Support Desk",
+      "reason": "Support Desk and Service Desk are two names for one team; A's is the base."
+    }
+  ]
+}

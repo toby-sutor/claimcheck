@@ -1,0 +1,214 @@
+{
+  "schema_version": 4,
+  "fixture": "attribution_invented",
+  "kind": "defect",
+  "held_out": true,
+  "description": "The merged document attributes source_b.md's TLS fact to the Operator Guide, which is source_a.md and never mentions TLS. The fact itself is preserved, so this is an invented relationship rather than an invented fact. b-tls-min is the control: it must be SUPPORTED in the forward direction, proving the fact reaches merged.md, so m-tls-attributed's MISSING is about the attribution and nothing else.",
+  "plants": [
+    "the minimum TLS version fact, stated only in source_b.md, is attributed to the Operator Guide (source_a.md), which does not mention TLS"
+  ],
+  "merged": "merged.md",
+  "prompts": {
+    "source_to_merged": "prompts/verify.md",
+    "merged_to_sources": "prompts/verify_reverse.md"
+  },
+  "claim_count_band": {
+    "source_a.md": [
+      3,
+      6
+    ],
+    "source_b.md": [
+      3,
+      6
+    ],
+    "merged.md": [
+      5,
+      9
+    ]
+  },
+  "probes": [
+    {
+      "probe_id": "a-listen-port",
+      "direction": "source_to_merged",
+      "document": "source_a.md",
+      "line": 3,
+      "text": "The relay listens on port 8443.",
+      "must_extract": true,
+      "anchor": {
+        "all_of": [
+          "listens on port 8443"
+        ]
+      },
+      "match": {
+        "all_of": [
+          "listens on port 8443"
+        ]
+      },
+      "expected_verdict": "SUPPORTED",
+      "also_acceptable": [],
+      "expected_finding": "none",
+      "expected_evidence_contains": [
+        "8443"
+      ]
+    },
+    {
+      "probe_id": "a-read-timeout",
+      "direction": "source_to_merged",
+      "document": "source_a.md",
+      "line": 4,
+      "text": "The read timeout is 30 seconds.",
+      "must_extract": true,
+      "anchor": {
+        "all_of": [
+          "read timeout is 30 seconds"
+        ]
+      },
+      "match": {
+        "all_of": [
+          "read timeout is 30 seconds"
+        ]
+      },
+      "expected_verdict": "SUPPORTED",
+      "also_acceptable": [],
+      "expected_finding": "none",
+      "expected_evidence_contains": [
+        "30 seconds"
+      ]
+    },
+    {
+      "probe_id": "a-health-path",
+      "direction": "source_to_merged",
+      "document": "source_a.md",
+      "line": 5,
+      "text": "The health check path is /healthz.",
+      "must_extract": true,
+      "anchor": {
+        "all_of": [
+          "/healthz"
+        ]
+      },
+      "match": {
+        "all_of": [
+          "health check path",
+          "/healthz"
+        ]
+      },
+      "expected_verdict": "SUPPORTED",
+      "also_acceptable": [],
+      "expected_finding": "none",
+      "expected_evidence_contains": [
+        "/healthz"
+      ]
+    },
+    {
+      "probe_id": "b-tls-min",
+      "direction": "source_to_merged",
+      "document": "source_b.md",
+      "line": 4,
+      "text": "The minimum TLS version is 1.2.",
+      "must_extract": true,
+      "anchor": {
+        "all_of": [
+          "minimum TLS version is 1.2"
+        ]
+      },
+      "match": {
+        "all_of": [
+          "minimum TLS version is 1.2"
+        ]
+      },
+      "expected_verdict": "SUPPORTED",
+      "also_acceptable": [],
+      "expected_finding": "none",
+      "expected_evidence_contains": [
+        "1.2"
+      ]
+    },
+    {
+      "probe_id": "b-max-connections",
+      "direction": "source_to_merged",
+      "document": "source_b.md",
+      "line": 5,
+      "text": "The maximum concurrent connections is 512.",
+      "must_extract": true,
+      "anchor": {
+        "all_of": [
+          "512"
+        ]
+      },
+      "match": {
+        "all_of": [
+          "concurrent connections",
+          "512"
+        ]
+      },
+      "expected_verdict": "SUPPORTED",
+      "also_acceptable": [],
+      "expected_finding": "none",
+      "expected_evidence_contains": [
+        "512"
+      ]
+    },
+    {
+      "probe_id": "m-tls-attributed",
+      "direction": "merged_to_sources",
+      "document": "merged.md",
+      "line": 6,
+      "text": "The Operator Guide states that the minimum TLS version is 1.2.",
+      "must_extract": true,
+      "anchor": {
+        "all_of": [
+          "According to the Operator Guide"
+        ]
+      },
+      "match": {
+        "all_of": [
+          "Operator Guide",
+          "minimum TLS version is 1.2"
+        ]
+      },
+      "expected_verdict": "MISSING",
+      "also_acceptable": [
+        "CONTRADICTED"
+      ],
+      "expected_finding": "hallucinated",
+      "expected_evidence_contains": [],
+      "expected_evidence_source": [],
+      "notes_evidence": "Evidence is deliberately unasserted. The two acceptable verdicts owe different evidence and there is no single expectation that covers both: MISSING owes no span and no source file, while CONTRADICTED owes source_b.md's plain statement of the TLS minimum, which is the very text a MISSING answer is right to say nothing about. Asserting either would fail the other reading for a reason that has nothing to do with grounding. Conditional-by-verdict evidence assertions are deferred to M5; until then these lists are empty, which asserts nothing.",
+      "note": "The fact survives; the attribution does not. source_a.md is the Operator Guide and never mentions TLS, so no source states this. Measured 2026-08-07 against qwen3:8b: decompose keeps the attribution, emitting this line as one attributed claim and no plain one, so the probe is representable and must_extract is true. A plain-form probe on the same line would align to that same single claim and is therefore not authored here — one claim cannot be both SUPPORTED and MISSING. Revised 2026-08-08, after the fixture was frozen: also_acceptable widened to [\"CONTRADICTED\"]. qwen3:8b and qwen3:4b each returned CONTRADICTED three times of three, with the same reasoning -- the sources do state the TLS minimum, they just do not attribute it to the Operator Guide, so the merge asserts something the sources deny. That is defensible, and so is MISSING, which reads the attributed claim as a unit that no source makes. expected_verdict stays MISSING and expected_finding stays hallucinated; the strict score keeps failing this, which is the point of keeping both modes. See docs/M3-model-comparison.md, 'Post-freeze fixture revisions'."
+    },
+    {
+      "probe_id": "m-read-timeout",
+      "direction": "merged_to_sources",
+      "document": "merged.md",
+      "line": 4,
+      "text": "The read timeout is 30 seconds.",
+      "must_extract": true,
+      "anchor": {
+        "all_of": [
+          "read timeout is 30 seconds"
+        ]
+      },
+      "match": {
+        "all_of": [
+          "read timeout is 30 seconds"
+        ]
+      },
+      "expected_verdict": "SUPPORTED",
+      "also_acceptable": [],
+      "expected_finding": "none",
+      "expected_evidence_contains": [
+        "30 seconds"
+      ],
+      "expected_evidence_source": [
+        "source_a.md"
+      ]
+    }
+  ],
+  "must_not_extract": [],
+  "expected_conflicts": [],
+  "expected_exit_code": {
+    "strict": 1,
+    "lenient": 1
+  }
+}
